@@ -1,49 +1,49 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { UserService } from '../user.service';
-import { WebSocketService } from '../websocket.service';
+import { WebsocketService } from '../../services/websocket.service';
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
-export class UserListComponent implements OnInit {
-
+export class UserListComponent implements OnInit, OnDestroy {  
   constructor(private userService: UserService,
-              private webSocketService: WebSocketService
+              private websocketService: WebsocketService
               ) { }
 
   ngOnInit() {
-    var exampleSocket = new WebSocket("ws://localhost:8000/ws/");
+    this.websocketService.clientUserSocket("userRoom");
+    //var exampleSocket = new WebSocket("ws://localhost:8000/ws/");
 
 
     //let message = { text: "Hi"}
 
-    exampleSocket.onopen = function (event) {
-      let Mymessage = {
-        content: "this is content",
-        token: "38791cfe2e406f6b1c17f1159c34ddffc4cdd8e1"
-      };
+    // exampleSocket.onopen = function (event) {
+    //   let Mymessage = {
+    //     content: "this is content",
+    //     token: "38791cfe2e406f6b1c17f1159c34ddffc4cdd8e1"
+    //   };
       //exampleSocket.send("Here's some text that the server is urgently awaiting!");
       //exampleSocket.send("heartbeat");
-      exampleSocket.send(JSON.stringify(Mymessage));
-    };
+    //   exampleSocket.send(JSON.stringify(Mymessage));
+    // };
     //setInterval(() => {exampleSocket.send("heartbeat");}, 5000);
 
-    exampleSocket.onmessage = function (event) {
-      let data = JSON.parse(event.data);
-      if(data.type == "presence"){
-        console.log('lurkers: ' + data.payload.lurkers);
-        console.log('anonymous: ' + data.payload.anonymous);
-        console.log('members: ' + data.payload.members);
-      }
-      else{
-        //console.log(event.data);
-      }
-
-
-    };
+    // exampleSocket.onmessage = function (event) {
+    //   let data = JSON.parse(event.data);
+    //   if(data.type == "presence"){
+    //     console.log('lurkers: ' + data.payload.lurkers);
+    //     console.log('anonymous: ' + data.payload.anonymous);
+    //     console.log('members: ' + data.payload.members);
+    //   }
+    //   else{
+    //     //console.log(event.data);
+    //   }
+    //
+    //
+    // };
     //setInterval(() => {exampleSocket.send("heartbeat");}, 5000);
 
 
@@ -70,18 +70,21 @@ export class UserListComponent implements OnInit {
     //socket.send('senddddddddddddddd');
     //socket.send(JSON.stringify(message));
     //.......................................
-    this.userService.getUserList()
-      .subscribe(
-        (data:any) => {
-          console.log('aliiiiiiiiiiiii');
-          console.log(data);
-        },
-        (error) => {
-          console.log('errorrrrrrrrrrrrrr');
-          console.log(error);
-        }
-      );
+    // this.userService.getUserList()
+    //   .subscribe(
+    //     (data:any) => {
+    //       console.log('aliiiiiiiiiiiii');
+    //       console.log(data);
+    //     },
+    //     (error) => {
+    //       console.log('errorrrrrrrrrrrrrr');
+    //       console.log(error);
+    //     }
+    //   );
 
   }
-
+  ngOnDestroy(){
+    console.log("user destroy");
+    this.websocketService.closeWebsocket();
+  }
 }

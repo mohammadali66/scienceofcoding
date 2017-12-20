@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     
     # local app :
     'users',
+    'clientUsers',
 ]
 
 MIDDLEWARE = [
@@ -161,7 +162,7 @@ CHANNEL_LAYERS = {
         "CONFIG": {            
             "hosts": [("localhost", 6379)],
         },
-        "ROUTING": "users.routing.channel_routing",
+        "ROUTING": "scienceofcoding_backend.routing.channel_routing",
     },
 }
 
