@@ -43,11 +43,15 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'channels',
-    'channels_presence',    
+    'channels_presence',
+    'ckeditor',
     
     # local app :
     'users',
     'clientUsers',
+    'categories',
+    'tags',
+    'articles',
 ]
 
 MIDDLEWARE = [
@@ -117,7 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tehran'
 
 USE_I18N = True
 
@@ -139,6 +143,18 @@ STATICFILES_DIRS = (
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static', 'media')
 
 MEDIA_URL = '/media/'
+
+CKEDITOR_UPLOAD_PATH = 'uploadsCKEditor/'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'extraPlugins': ','.join(
+            [
+                'codesnippet',
+            ]),
+    },
+}
 
 
 

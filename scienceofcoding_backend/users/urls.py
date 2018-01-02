@@ -11,6 +11,7 @@ app_name='users'
 # ]
 
 urlpatterns = [
+    url(r'^detail/(?P<slug>[\w-]+)/$', views.UserProfileAPIView.as_view(), name='detail'),
+    url(r'^$', views.UserListAPIView.as_view(), name='userslist'),
     
-    url(r'^', views.UserListAPIView.as_view(), name='userslist'),
 ]

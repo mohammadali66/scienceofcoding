@@ -1,4 +1,14 @@
 @import url('skins/torisEyeTheme.css');
+
+/* Fonts */
+@font-face {
+    font-family: Katibeh;
+    src: url(fonts/Katibeh-Regular.otf);
+}
+@font-face {
+    font-family: Badr;
+    src: url(fonts/Badr.woff);
+}
 /*--------------------------------------------------------------
 	Common
 --------------------------------------------------------------*/
@@ -10,8 +20,8 @@ html {
 
 body {
   background: #fff;  /*var(--color2);*/
-  font: 400 14px "Open Sans", sans-serif;
-  color: red;
+  font: 400 18px Badr, "Open Sans", sans-serif;
+  color: #4c4c4c;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -889,7 +899,7 @@ blockquote {
 }
 
 .font-alt {
-  font-family: "Roboto Condensed", sans-serif;
+  font-family: Badr, "Roboto Condensed", sans-serif;
   text-transform: uppercase;
   letter-spacing: 2px;
 }

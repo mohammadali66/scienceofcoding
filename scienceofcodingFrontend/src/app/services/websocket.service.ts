@@ -10,9 +10,11 @@ export class WebsocketService{
   private socket: any;
   //private id:any;
   private data:any;
+  public isCalled: boolean;
   constructor(private http: Http){
     //this.socket = new WebSocket("ws://localhost:8000/clientuser/");
     this.ipInfo = "";
+    this.isCalled = false;
   }
 
   //............................................................
@@ -35,6 +37,7 @@ export class WebsocketService{
   //............................................................
   //function clientUserSocket
   clientUserSocket(room_name: string){
+    this.isCalled = true;
     this.socket = new WebSocket("ws://localhost:8000/clientuser/");
     var _self = this;
 
@@ -48,7 +51,7 @@ export class WebsocketService{
       //let ipInfo = ipInfo2;
 
 
-      let clientMessage = {        
+      let clientMessage = {
         ip_address: _self.ipInfo.query,
         isp: _self.ipInfo.isp,
         country: _self.ipInfo.country,
@@ -63,7 +66,7 @@ export class WebsocketService{
     };
 
     _self.socket.onmessage = (event) => {
-      console.log("data from socket:" + event.data);
+      //console.log("data from socket:" + event.data);
       _self.data = JSON.parse(event.data);
     };
   }
@@ -71,6 +74,7 @@ export class WebsocketService{
   //............................................................
   //function close websocket
   closeWebsocket(){
+    this.isCalled = false;
     this.socket.close();
   }
 }

@@ -15,12 +15,19 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 #from django.urls import path, include
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^users/', include('users.urls', namespace='users')),
-]
+    url(r'^api/user/', include('users.urls', namespace='users')),
+    url(r'^api/category/', include('categories.urls', namespace='category-api')),
+    url(r'^api/article/', include('articles.urls', namespace='article-api')),
+    url(r'^api/tag/', include('tags.urls', namespace='tag-api')),
+    url(r'^api/analytics/', include('clientUsers.urls', namespace='clientUsers-api')),
+    
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 # urlpatterns = [

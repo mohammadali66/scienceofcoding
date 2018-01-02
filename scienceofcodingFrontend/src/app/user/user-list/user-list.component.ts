@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { UserService } from '../user.service';
+import { UserService } from '../../services/user.service';
 import { WebsocketService } from '../../services/websocket.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { WebsocketService } from '../../services/websocket.service';
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
-export class UserListComponent implements OnInit, OnDestroy {  
+export class UserListComponent implements OnInit, OnDestroy {
   constructor(private userService: UserService,
               private websocketService: WebsocketService
               ) { }

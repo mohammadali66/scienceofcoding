@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils import timezone
 
+# from articles.models import Article
 
 
 class ClientUser(models.Model):
@@ -48,7 +49,7 @@ class ClientUser(models.Model):
 #..............................................................................................................
 class Page(models.Model):
     name = models.CharField(max_length=150)
-    #article = models.OneToOneField(Article, null=True, blank=True)
+    article = models.OneToOneField('articles.Article', on_delete=models.CASCADE, null=True, blank=True)
     
     
     def __unicode__(self):
@@ -56,7 +57,15 @@ class Page(models.Model):
 
     def __str__(self):
         return str(self.name)
-
+    
+#     def getArticle(self):
+#         try:
+#             article = Article.objects.get(slug=self.name)
+#         except Article.DoesNotExist:
+#             article = None
+#         
+#         return article
+        
 #..............................................................................................................
 class ClientUserOpenedPage(models.Model):
     clientUser     = models.ForeignKey(ClientUser, on_delete=models.CASCADE)

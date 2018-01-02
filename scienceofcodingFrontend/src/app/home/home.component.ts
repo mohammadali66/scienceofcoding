@@ -8,11 +8,11 @@ import { WebsocketService } from '../services/websocket.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  
+
   constructor(private websocketService: WebsocketService) { }
 
   ngOnInit() {
-    this.websocketService.clientUserSocket("testRoom");
+    this.websocketService.clientUserSocket("homeRoom");
 
   }
 
