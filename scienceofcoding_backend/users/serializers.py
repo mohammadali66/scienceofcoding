@@ -17,12 +17,15 @@ class UserListSerializer(ModelSerializer):
 class UserBriefSerializer(ModelSerializer):
     
     username = SerializerMethodField()
-    slug = SerializerMethodField()
+    slug     = SerializerMethodField()
+    avatar   = SerializerMethodField()
+    
     class Meta:
         model = User
         fields = (
             'username',
             'slug',
+            'avatar',
         )
     
     def get_username(self, obj):
@@ -33,6 +36,11 @@ class UserBriefSerializer(ModelSerializer):
     def get_slug(self, obj):
         if obj.userprofile.slug:
             return obj.userprofile.slug
+        return ''
+    
+    def get_avatar(self, obj):
+        if obj.userprofile.avatar:
+            return obj.userprofile.avatar.url
         return ''
 
 #...............................................................................................................

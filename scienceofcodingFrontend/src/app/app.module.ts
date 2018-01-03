@@ -29,6 +29,7 @@ import { TagComponent } from './tag/tag.component';
 import { SafePipe } from './safe.pipe';
 import { AuthorProfileComponent } from './user/author-profile/author-profile.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
+import { CommentListComponent } from './comment/comment-list/comment-list.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { AnalyticsComponent } from './analytics/analytics.component';
     TagComponent,
     SafePipe,
     AuthorProfileComponent,
-    AnalyticsComponent
+    AnalyticsComponent,
+    CommentListComponent
   ],
   imports: [
     BrowserModule,

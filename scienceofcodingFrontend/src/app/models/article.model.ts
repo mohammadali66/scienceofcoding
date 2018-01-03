@@ -1,5 +1,6 @@
 import { Tag } from './tag.model';
 import { User } from './user.model';
+import { Comment } from './comment.model';
 
 export class Article{
 
@@ -15,7 +16,10 @@ export class Article{
   public updated_date: string;
   public url:string;
 
+  public comment_count: string;
+
   public tags: Tag[];
+  public comments: Array<Comment>;
 
   constructor(){}
 }

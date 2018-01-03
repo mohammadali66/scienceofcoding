@@ -1,8 +1,11 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
 from .models import Article
+from comments.models import Comment
 from tags import serializers as tags_serializers
 from users import serializers as users_serializers
+from comments import serializers as comments_serializers
+
 
 class ArticleBriefSerializer(ModelSerializer):
     
@@ -30,9 +33,12 @@ class ArticleBriefSerializer(ModelSerializer):
 #................................................................................................................
 class ArticleSerializer(ModelSerializer):
     
-    author = SerializerMethodField()
+    author           = SerializerMethodField()
     updated_datetime = SerializerMethodField()
-    tags = SerializerMethodField()
+    comment_count    = SerializerMethodField()
+    tags             = SerializerMethodField()
+    comment_list     = SerializerMethodField()    
+    
     class Meta:
         model = Article
         fields = (
@@ -44,8 +50,10 @@ class ArticleSerializer(ModelSerializer):
                     'updated_datetime',
                     'author',
                     'view_count',
+                    'comment_count',
                     'tags',
                     'get_api_url',
+                    'comment_list',                    
                 )
 
     def get_author(self, obj):
@@ -59,6 +67,21 @@ class ArticleSerializer(ModelSerializer):
         seri = tags_serializers.TagSerializer(obj.tags, many=True).data
         return seri
 
-
+    
+    def get_comment_list(self, obj):
+        
+        list = Comment.objects.filter(
+                                        article=obj,
+                                        parent=None
+                                      )
+        
+        return comments_serializers.CommentSerializer(list, many=True).data
+    
+    
+    def get_comment_count(self, obj):
+        return Comment.objects.filter(article=obj).count()
+    
+    
+    
 
 
