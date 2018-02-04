@@ -15,7 +15,7 @@ User = get_user_model()
 
 from django.dispatch import receiver
 
-#.............................................................................................................
+# .............................................................................................................
 @channel_session_user_from_http
 @channel_session
 def user_connect(message):
@@ -23,34 +23,34 @@ def user_connect(message):
     print('user_connet !!!!!!!!!3333')
     
     Group('all2').add(message.reply_channel)
-    #user = User.objects.first()
-    #message.user = user
-    #print('user222: %s' % str(message.user))
-    #Room_channels_presence.objects.add("all2", message.reply_channel.name, message.user)
+    # user = User.objects.first()
+    # message.user = user
+    # print('user222: %s' % str(message.user))
+    # Room_channels_presence.objects.add("all2", message.reply_channel.name, message.user)
     message.reply_channel.send({'accept': True})
     
     
-#.............................................................................................................
+# .............................................................................................................
 @touch_presence
 @channel_session_user
 def user_receive(message):
-    print('user_receive !!!!!!!!!!878888 %s' % message.content )
+    print('user_receive !!!!!!!!!!878888 %s' % message.content)
     
     data = json.loads(message['text'])
     myContent = data['content']
     myToken = data['token']
     token = Token.objects.get(key=myToken)
-    print('myUser: %s' %token.user.username)
+    print('myUser: %s' % token.user.username)
     message.user = token.user
     Room_channels_presence.objects.add("all2", message.reply_channel.name, message.user)
     
-    #print('content: {0} - token: {1}'.format(myContent, myToken))
+    # print('content: {0} - token: {1}'.format(myContent, myToken))
 #     if message.content['text'] == "heartbeat":
 #         print('heart')
 #         Presence.objects.touch(message.reply_channel.name)
         
     Group('all2').add(message.reply_channel)
-    #Room_channels_presence.objects.add('all', message.reply_channel.name, message.user)
+    # Room_channels_presence.objects.add('all', message.reply_channel.name, message.user)
     my_dict = {
         'user': "alll",
         'messagechat': "testing"
@@ -59,13 +59,13 @@ def user_receive(message):
      
     
     
-#.............................................................................................................
+# .............................................................................................................
 @remove_presence
 def user_disconnect(message):
     Group("all2").discard(message.reply_channel)
     Room_channels_presence.objects.remove("all2", message.reply_channel.name)
     print('disssssssssss')
-#.............................................................................................................
+# .............................................................................................................
 @receiver(presence_changed)
 def broadcast_presence(sender, room, **kwargs):
     # Broadcast the new list of present users to the room.

@@ -1,0 +1,48 @@
+<section class="module-small">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4 col-md-3 sidebar">
+        <app-article-side-bar></app-article-side-bar>
+      </div>
+
+      <div class="col-sm-8 col-sm-offset-1">
+
+        <h4 class="font-alt">Register</h4>
+        <hr class="divider-w mb-10">
+        <!-- ----- error messages -------- -->
+        <div class="alert alert-danger" role="alert" *ngIf="password.value !== repassword.value"> password and repassword do not matched</div>
+        <div class="alert alert-danger" role="alert" *ngIf="!email.valid && email.touched">email is incorrect</div>
+        <div class="alert alert-danger" role="alert" *ngIf="!username.valid && username.touched">username is empty</div>
+        <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+          <strong>Alert!</strong> {{ errorMessage }}
+        </div>
+
+        <form class="form" (ngSubmit)="registerUserForm(f)" #f="ngForm">
+          <div class="form-group">
+            <input class="form-control" id="username" type="text" name="username" placeholder="Username"
+              ngModel required username #username="ngModel"/>
+          </div>
+          <div class="form-group">
+            <input class="form-control" id="E-mail" type="text" name="email" placeholder="Email"
+              ngModel required email #email="ngModel"/>
+          </div>
+          <div class="form-group">
+            <input class="form-control" id="password" type="password" name="password" placeholder="Password"
+              ngModel required #password="ngModel"/>
+          </div>
+          <div class="form-group">
+            <input class="form-control" id="re-password" type="password" name="re-password" placeholder="Re-enter Password"
+              ngModel required #repassword="ngModel"/>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-block btn-round btn-b"
+              [disabled]="!f.valid">Register</button>
+          </div>
+        </form>
+
+
+      </div>
+
+    </div><!-- row -->
+  </div><!-- container -->
+</section>

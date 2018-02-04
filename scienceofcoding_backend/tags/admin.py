@@ -8,7 +8,8 @@ from .models import Tag
 class TagAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug', ]
     fields = ['name', 'slug', ]
-    prepopulated_fields = {'slug': (unicode('name'),)}
+    # prepopulated_fields = {'slug': (unicode('name'),)}
+    prepopulated_fields = {'slug': (str('name'),)}
 
 
 

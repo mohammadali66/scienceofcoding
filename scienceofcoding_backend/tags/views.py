@@ -9,7 +9,7 @@ from . import serializers
 class TagAPIView(RetrieveAPIView):
     
     serializer_class = serializers.TagSerializer
-    permission_classes = (permissions.AllowAny, )
+    permission_classes = (permissions.AllowAny,)
     queryset = Tag.objects.all()
     lookup_field = 'slug'
     

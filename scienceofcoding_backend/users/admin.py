@@ -11,8 +11,8 @@ class UserProfileInline(admin.StackedInline):
     can_delete = False
     verbose_name_plural = 'userProfile'
     
-    fields = ('slug', 'avatar', 'width_field', 'height_field', 'description_english', 'description_farsi', )
-    #prepopulated_fields = {'slug': (unicode('user'),)}
+    fields = ('slug', 'avatar', 'width_field', 'height_field', 'description_english', 'description_farsi',)
+    # prepopulated_fields = {'slug': (unicode('user'),)}
     
     def save_model(self, request, obj, form, change):
         
@@ -21,18 +21,18 @@ class UserProfileInline(admin.StackedInline):
 #             page.save()
             pass
         
-        #update datetime publication
-        #obj.slug = slugify(obj.user.userName, allow_unicode=True)
+        # update datetime publication
+        # obj.slug = slugify(obj.user.userName, allow_unicode=True)
                     
         obj.save()
     
   
-#.......................................................................................................
+# .......................................................................................................
 class UserAdmin(BaseUserAdmin):
-    inlines = (UserProfileInline, )
+    inlines = (UserProfileInline,)
       
       
-#Re-register UserAdmin
+# Re-register UserAdmin
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 

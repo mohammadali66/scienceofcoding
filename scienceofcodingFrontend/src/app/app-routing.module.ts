@@ -8,6 +8,8 @@ import { ArticleComponent } from './article/article.component';
 import { TagComponent } from './tag/tag.component';
 import { AuthorProfileComponent } from './user/author-profile/author-profile.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,7 +20,9 @@ const appRoutes: Routes = [
   { path: 'category/:categoryslug', component: CategoryComponent },
   { path: 'article/:articleslug', component: ArticleComponent },
   { path: 'tag/:tagslug', component: TagComponent },
-  { path: 'analytics', component: AnalyticsComponent }
+  { path: 'analytics', component: AnalyticsComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent }
 
   //{ path: 'category', component: CategoryComponent, outlet: 'articleBase' }
 ];

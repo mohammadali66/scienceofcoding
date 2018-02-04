@@ -5,8 +5,8 @@ from django.db import models
 
 
 class Tag(models.Model):
-    name         = models.CharField(max_length=50)
-    slug         = models.SlugField(unique=True, allow_unicode=True)
+    name = models.CharField(max_length=50)
+    slug = models.SlugField(unique=True, allow_unicode=True)
     
     
     def __unicode__(self):

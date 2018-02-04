@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
-
+from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
 
 from .models import UserProfile
@@ -34,21 +34,22 @@ class UserBriefSerializer(ModelSerializer):
         return obj.username
     
     def get_slug(self, obj):
-        if obj.userprofile.slug:
+        try:
             return obj.userprofile.slug
-        return ''
+        except:
+            return ''
+        
     
     def get_avatar(self, obj):
-        if obj.userprofile.avatar:
+        try:
             return obj.userprofile.avatar.url
-        return ''
+        except:
+            return ''
+        
 
 #...............................................................................................................
 class UserProfileSerializer(ModelSerializer):
     
-#     avatar = SerializerMethodField()
-#     description_english = SerializerMethodField()
-#     slug = SerializerMethodField()
     username   = SerializerMethodField()
     first_name = SerializerMethodField()
     last_name  = SerializerMethodField()
@@ -79,22 +80,57 @@ class UserProfileSerializer(ModelSerializer):
             return obj.user.last_name
         return ''
     
-#     def get_avatar(self, obj):
-#         if obj.userprofile.avatar:
-#             return obj.userprofile.avatar
-#         return ''
-#     
-# 
-#     def get_description_english(self, obj):
-#         if obj.userprofile.description_english:
-#             return obj.userprofile.description_english
-#         return ''
-# 
-# 
-#     def get_slug(self, obj):
-#         if obj.userprofile.slug:
-#             return obj.userprofile.slug
-#         return ''
+#...............................................................................................................
+class UserLoginSerializer(ModelSerializer):
     
+    token = SerializerMethodField()
+    
+    class Meta:
+        model = User
+        fields = (
+                    'username',
+                    'email',
+                    'password',                    
+                    'token',
+                )
+        extra_kwargs = {
+                            'username': {'read_only': True, },
+                            'email': { 'write_only': True, },
+                            'password': {'write_only': True, },                            
+                            'token': { 'read_only': True, },
+                        }
+
+
+    def get_token(self, obj):
+        
+        mytoken = Token.objects.get(user=obj)
+        return str(mytoken.key)
+
+#...............................................................................................................
+class UserRegisterSerializer(ModelSerializer):
+    
+    token = SerializerMethodField()
+    
+    class Meta:
+        model = User
+        fields = (
+                    'username',
+                    'email',
+                    'password',
+                    'token',              
+                )
+        extra_kwargs = {
+                            'email': { 'write_only': True, },
+                            'password': {'write_only': True, },                            
+                            'token': { 'read_only': True, },
+                        }
+
+
+    def get_token(self, obj):
+        
+        mytoken = Token.objects.get(user=obj)
+        return str(mytoken.key)
+
+
 
 

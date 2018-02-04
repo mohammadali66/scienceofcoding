@@ -14,11 +14,12 @@ export class CategoryService{
   //............................................................................
   getCategoryListMenu(){
     let url = this.mainUrl + '/api/category/categorylist/?format=json';
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Access-Control-Allow-Origin', '*');
+    // let headers = new Headers();
+    // headers.append('Content-Type', 'application/json');
+    // headers.append('Access-Control-Allow-Origin', '*');
 
-    return this.http.get(url, headers)
+    // return this.http.get(url, headers)
+    return this.http.get(url)
       .map(
         (response: Response) => {
           const data = response.json();
@@ -31,11 +32,12 @@ export class CategoryService{
   //............................................................................
   getCategoryDetail(categorySlug: string){
     let url = this.mainUrl + '/api/category/detail/' + categorySlug +'/?format=json';
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Access-Control-Allow-Origin', '*');
+    // let headers = new Headers();
+    // headers.append('Content-Type', 'application/json');
+    // headers.append('Access-Control-Allow-Origin', '*');
 
-    return this.http.get(url, headers)
+    // return this.http.get(url, headers)
+    return this.http.get(url)
       .map(
         (response: Response) => {
           const data = response.json();

@@ -4,6 +4,7 @@ import { Comment } from './comment.model';
 
 export class Article{
 
+  public id: string;
   public title_english: string;
   public title_farsi: string;
   public abstract_english: string;

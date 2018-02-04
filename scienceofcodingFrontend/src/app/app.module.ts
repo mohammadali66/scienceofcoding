@@ -1,11 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { FormsModule } from '@angular/forms';
 
 //import {DpDatePickerModule} from 'ng2-date-picker';
 //import {DatePickerModule} from 'ng2-datepicker-bootstrap';
 //import { MyDatePickerModule } from 'mydatepicker';
-import { NgDatepickerModule } from 'ng2-datepicker';
+// import { NgDatepickerModule } from 'ng2-datepicker';
 
 import { WebsocketService } from './services/websocket.service';
 import { CategoryService } from './services/category.service';
@@ -13,6 +14,8 @@ import { ArticleService } from './services/article.service';
 import { TagService } from './services/tag.service';
 import { UserService } from './services/user.service';
 import { AnalyticsService } from './services/analytics.service';
+import { AuthService } from './services/auth.service';
+import { CommentService } from './services/comment.service';
 
 import { AppComponent } from './app.component';
 import { UserListComponent } from './user/user-list/user-list.component';
@@ -30,6 +33,9 @@ import { SafePipe } from './safe.pipe';
 import { AuthorProfileComponent } from './user/author-profile/author-profile.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { CommentListComponent } from './comment/comment-list/comment-list.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { CommentCreateComponent } from './comment/comment-create/comment-create.component';
 
 @NgModule({
   declarations: [
@@ -47,16 +53,16 @@ import { CommentListComponent } from './comment/comment-list/comment-list.compon
     SafePipe,
     AuthorProfileComponent,
     AnalyticsComponent,
-    CommentListComponent
+    CommentListComponent,
+    LoginComponent,
+    RegisterComponent,
+    CommentCreateComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
     AppRoutingModule,
-    //DpDatePickerModule,
-    //DatePickerModule
-    //MyDatePickerModule
-    NgDatepickerModule
+    FormsModule
   ],
   providers: [
     UserService,
@@ -64,7 +70,9 @@ import { CommentListComponent } from './comment/comment-list/comment-list.compon
     CategoryService,
     ArticleService,
     TagService,
-    AnalyticsService
+    AnalyticsService,
+    AuthService,
+    CommentService
   ],
   bootstrap: [AppComponent]
 })

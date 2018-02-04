@@ -19,7 +19,7 @@ class ArticleListOfOneCategoryAPIView(ListAPIView):
                                             )
         return articleList 
 
-#...............................................................................................................
+# ...............................................................................................................
 class ArticleListOfOneTagAPIView(ListAPIView):
     serializer_class = serializers.ArticleBriefSerializer
     pagination_class = StandardResultsSetPagination
@@ -32,10 +32,10 @@ class ArticleListOfOneTagAPIView(ListAPIView):
         return articleList 
 
 
-#...............................................................................................................
+# ...............................................................................................................
 class ArticleAPIView(RetrieveAPIView):
     serializer_class = serializers.ArticleSerializer
-    permission_classes = (permissions.AllowAny, )
+    permission_classes = (permissions.AllowAny,)
     queryset = Article.objects.all()
     lookup_field = 'slug'
     

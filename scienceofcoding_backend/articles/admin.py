@@ -8,10 +8,11 @@ from clientUsers.models import Page
 
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ['title_english', 'author', 'category',
-                     'is_active', 'featured', 'view_count', 'created_datetime', 'updated_datetime',  ]
+                     'is_active', 'featured', 'view_count', 'created_datetime', 'updated_datetime', ]
     
     filter_horizontal = ('tags',)
-    prepopulated_fields = {'slug': (unicode('title_english'),)}
+    # prepopulated_fields = {'slug': (unicode('title_english'),)}
+    prepopulated_fields = {'slug': (str('title_english'),)}
     
     def save_model(self, request, obj, form, change):
         
@@ -20,7 +21,7 @@ class ArticleAdmin(admin.ModelAdmin):
 #             page.save()
             pass
         
-        #update datetime publication
+        # update datetime publication
         obj.updated_datetime = timezone.now()
                     
         obj.save()

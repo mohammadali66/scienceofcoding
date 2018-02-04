@@ -9,7 +9,8 @@ class CategoryAdmin(admin.ModelAdmin):
     
     list_display = ['name', ]
     fields = ['name', 'slug', 'description', 'image', 'width_field', 'height_field', ]
-    prepopulated_fields = {'slug': (unicode('name'),)}
+    # prepopulated_fields = {'slug': (unicode('name'),)}
+    prepopulated_fields = {'slug': (str('name'),)}
     
 
 admin.site.register(Category, CategoryAdmin)

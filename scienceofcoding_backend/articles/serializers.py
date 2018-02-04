@@ -30,7 +30,7 @@ class ArticleBriefSerializer(ModelSerializer):
     def get_updated_datetime(self, obj):
         return str(obj.updated_datetime.date())    
 
-#................................................................................................................
+# ................................................................................................................
 class ArticleSerializer(ModelSerializer):
     
     author           = SerializerMethodField()
@@ -42,6 +42,7 @@ class ArticleSerializer(ModelSerializer):
     class Meta:
         model = Article
         fields = (
+                    #'id',
                     'title_english',
                     'abstract_english',
                     'content_english',
@@ -53,7 +54,7 @@ class ArticleSerializer(ModelSerializer):
                     'comment_count',
                     'tags',
                     'get_api_url',
-                    'comment_list',                    
+                    'comment_list',
                 )
 
     def get_author(self, obj):

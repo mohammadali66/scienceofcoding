@@ -25,7 +25,7 @@ class PageAPIView(APIView):
             return Response(serializer.error_messages, status=status.HTTP_404_NOT_FOUND)
         
         
-#..............................................................................................................
+# ..............................................................................................................
 class PageTwoDateAPIView(APIView):
     
     def get(self, request, fromdate, todate, *args, **kwargs):

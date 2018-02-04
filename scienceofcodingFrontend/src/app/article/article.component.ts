@@ -16,7 +16,7 @@ import { Comment } from '../models/comment.model';
 })
 export class ArticleComponent implements OnInit, OnDestroy {
 
-  private article: Article = new Article();
+  article: Article = new Article();
 
   constructor(private articleService: ArticleService,
               private websocketService: WebsocketService,
@@ -36,13 +36,14 @@ export class ArticleComponent implements OnInit, OnDestroy {
             (data: any) => {
 
               //websocket  .............................................
-              // let page_name = this.article.slug;
-              // //let page_name = 'category';
-              // if(this.websocketService.isCalled){
-              //   this.websocketService.closeWebsocket();
-              // }
-              // this.websocketService.clientUserSocket(page_name);
+              let page_name = this.article.slug;
+              //let page_name = 'category';
+              if(this.websocketService.isCalled){
+                this.websocketService.closeWebsocket();
+              }
+              this.websocketService.clientUserSocket(page_name);
               //......................................................
+                this.article.id = data.id;
                 this.article.title_english = data.title_english;
                 this.article.abstract_english = data.abstract_english;
                 this.article.content_english = data.content_english;
@@ -100,13 +101,13 @@ export class ArticleComponent implements OnInit, OnDestroy {
                   this.article.comments.push(comment);
 
                 }
-                console.log('list: ' + this.article.comments)
+                console.log('article id: ' + this.article.id)
             }
           );
     });
   }
   //............................................................................
   ngOnDestroy(){
-    //this.websocketService.closeWebsocket();
+    this.websocketService.closeWebsocket();
   }
 }

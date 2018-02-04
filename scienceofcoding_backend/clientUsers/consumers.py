@@ -12,13 +12,13 @@ from django.utils import timezone
 
 from clientUsers.models import ClientUser, Page, ClientUserOpenedPage
 
-#...............................................................................................................
+# ...............................................................................................................
 @channel_session_user_from_http
 def clientUser_connect(message):
     print('conneted!!')
     message.reply_channel.send({'accept': True})
 
-#...............................................................................................................
+# ...............................................................................................................
 @touch_presence
 @channel_session_user
 def clientUser_receive(message):
@@ -79,12 +79,12 @@ def clientUser_receive(message):
     
     my_dict = {
         'user': message.user.username,
-        #'clientUserOpenedPageId': str(clientUserOpenedPage.id)
+        # 'clientUserOpenedPageId': str(clientUserOpenedPage.id)
     }
     Group(room_name).send({'text': json.dumps(my_dict)})
     
 
-#...............................................................................................................
+# ...............................................................................................................
 @remove_presence
 @channel_session_user
 def clientUser_disconnect(message):
@@ -103,13 +103,13 @@ def clientUser_disconnect(message):
     Room_channels_presence.objects.remove(room_name, message.reply_channel.name)
 
 
-#...............................................................................................................
+# ...............................................................................................................
 @receiver(presence_changed)
 def broadcast_presence(sender, room, **kwargs):
     # Broadcast the new list of present users to the room.
-    #print('users: %s' % str(room.get_users()))
+    # print('users: %s' % str(room.get_users()))
     
-    print('presence function --- anonymous: %s' %str(room.get_anonymous_count()))
+    print('presence function --- anonymous: %s' % str(room.get_anonymous_count()))
     
     Group(room.channel_name).send({
         'text': json.dumps({

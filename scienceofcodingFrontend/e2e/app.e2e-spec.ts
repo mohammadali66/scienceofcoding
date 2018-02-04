@@ -1,10 +1,10 @@
-import { ScienceofcodingFrontendPage } from './app.po';
+import { AppPage } from './app.po';
 
 describe('scienceofcoding-frontend App', () => {
-  let page: ScienceofcodingFrontendPage;
+  let page: AppPage;
 
   beforeEach(() => {
-    page = new ScienceofcodingFrontendPage();
+    page = new AppPage();
   });
 
   it('should display welcome message', () => {

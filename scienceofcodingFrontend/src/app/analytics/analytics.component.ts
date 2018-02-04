@@ -11,21 +11,21 @@ import { ClientUserOpenedPage } from '../models/clientUserOpenedPage.model';
   styleUrls: ['./analytics.component.css']
 })
 export class AnalyticsComponent implements OnInit {
-  private date: Date = new Date();
-  private show;
-  private dayName;
-  private monthName;
-  private yearName;
-  private dayNg = "26";
-  private monthNg = "12";
-  private yearNg = "2017";
-  private fromdayNg = "26";
-  private frommonthNg = "12";
-  private fromyearNg = "2017";
-  private todayNg = "26";
-  private tomonthNg = "12";
-  private toyearNg = "2017";
-  private pageList: Array<Page>;
+  date: Date = new Date();
+  show;
+  dayName;
+  monthName;
+  yearName;
+  dayNg = "26";
+  monthNg = "12";
+  yearNg = "2017";
+  fromdayNg = "26";
+  frommonthNg = "12";
+  fromyearNg = "2017";
+  todayNg = "26";
+  tomonthNg = "12";
+  toyearNg = "2017";
+  pageList: Array<Page>;
   constructor(private analyticsService: AnalyticsService) {
     // day :
     this.dayName = [
@@ -128,7 +128,7 @@ export class AnalyticsComponent implements OnInit {
     let fromDate = form.value.fromyear + '-' + form.value.frommonth + '-' + form.value.fromday;
     let toDate = form.value.toyear + '-' + form.value.tomonth + '-' + form.value.today;
     this.pageList = new Array<Page>();
-    
+
     this.analyticsService.getOpenedPageOfTwoDate(fromDate, toDate).subscribe(
       (data: any) => {
 

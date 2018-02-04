@@ -9,17 +9,17 @@ from django.utils import timezone
 
 class ClientUser(models.Model):
     
-    ip_address          = models.CharField(max_length=20, blank=True, null=True)
-    isp                 = models.CharField(max_length=30, blank=True, null=True)
+    ip_address = models.CharField(max_length=20, blank=True, null=True)
+    isp = models.CharField(max_length=30, blank=True, null=True)
     
-    country             = models.CharField(max_length=20, blank=True, null=True)
-    city                = models.CharField(max_length=20, blank=True, null=True)
+    country = models.CharField(max_length=20, blank=True, null=True)
+    city = models.CharField(max_length=20, blank=True, null=True)
     
-    altitude            = models.CharField(max_length=20, blank=True, null=True)
-    longitude           = models.CharField(max_length=20, blank=True, null=True)
+    altitude = models.CharField(max_length=20, blank=True, null=True)
+    longitude = models.CharField(max_length=20, blank=True, null=True)
     
-    created_datetime    = models.DateTimeField(auto_now_add = True, auto_now = False)
-    updated_datetime    = models.DateTimeField(default = timezone.now)
+    created_datetime = models.DateTimeField(auto_now_add=True, auto_now=False)
+    updated_datetime = models.DateTimeField(default=timezone.now)
     
      
     def __unicode__(self):
@@ -46,7 +46,7 @@ class ClientUser(models.Model):
                                                     )
         return page_list 
     
-#..............................................................................................................
+# ..............................................................................................................
 class Page(models.Model):
     name = models.CharField(max_length=150)
     article = models.OneToOneField('articles.Article', on_delete=models.CASCADE, null=True, blank=True)
@@ -66,12 +66,12 @@ class Page(models.Model):
 #         
 #         return article
         
-#..............................................................................................................
+# ..............................................................................................................
 class ClientUserOpenedPage(models.Model):
-    clientUser     = models.ForeignKey(ClientUser, on_delete=models.CASCADE)
-    page           = models.ForeignKey(Page, on_delete=models.CASCADE)
-    open_datetime  = models.DateTimeField(auto_now_add = True, auto_now = False)
-    end_datetime   = models.DateTimeField(default=None, null=True, blank=True)
+    clientUser = models.ForeignKey(ClientUser, on_delete=models.CASCADE)
+    page = models.ForeignKey(Page, on_delete=models.CASCADE)
+    open_datetime = models.DateTimeField(auto_now_add=True, auto_now=False)
+    end_datetime = models.DateTimeField(default=None, null=True, blank=True)
     
 
     @property

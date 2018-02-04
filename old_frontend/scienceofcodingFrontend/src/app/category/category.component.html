@@ -1,0 +1,60 @@
+<!-- <section class="module bg-dark-60 blog-page-header" data-background=category.image> -->
+<section class="module bg-dark-60 blog-page-header back" [style.background]="'url('+ category.image +')'">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3">
+        <h2 class="module-title font-alt">{{ category.name }}</h2>
+        <div class="module-subtitle font-serif">{{ category.description }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="module">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4 col-md-3 sidebar">
+        <app-article-side-bar></app-article-side-bar>
+      </div>
+
+      <div class="col-sm-8 col-sm-offset-1">
+        <div class="row">
+          <div class="col-md-12">
+            <button class="btn btn-primary"
+              (click)="nextPage('previous')"
+              *ngIf="previous">Previous</button>
+
+            <button class="btn btn-primary"
+              (click)="nextPage('next')"
+              *ngIf="next">Next</button>
+          </div>
+        </div>
+        <hr />
+
+        <div class="row post-masonry post-columns">
+
+
+
+          <div class="col-md-6 col-lg-6" *ngFor="let article of category.category_articles">
+            <div class="post">
+              <div class="post-thumbnail"><a [routerLink]="['/article', article.slug]"><img src="{{ article.image }}" alt="Blog-post Thumbnail"/></a></div>
+              <div class="post-header font-alt">
+                <h2 class="post-title"><a [routerLink]="['/article', article.slug]">{{ article.title_english }}</a></h2>
+                <div class="post-meta">By&nbsp;<a [routerLink]="['/user/authorprofile', article.author.slug]">{{ article.author.username }}</a>&nbsp;| {{ article.updated_date }} | 3 Comments
+                </div>
+              </div>
+              <div class="post-entry">
+                <p>{{ article.abstract_english | slice :0:100 }} ...</p>
+              </div>
+              <div class="post-more"><a class="more-link" [routerLink]="['/article', article.slug]">Read more</a></div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div><!-- row -->
+  </div><!-- container -->
+</section>

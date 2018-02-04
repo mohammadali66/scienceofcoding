@@ -1,0 +1,23 @@
+<div *ngIf="loggedUsername; then log else not_log"></div>
+
+<!-- ------------------ log ----------------------- -->
+<ng-template #log>
+  <form method="post">
+
+    <div class="form-group">
+      <textarea class="form-control" id="comment" name="comment" rows="7" placeholder="Comment" dir="auto"></textarea>
+    </div>
+    <button class="btn btn-round btn-d" type="submit">Post comment</button>
+  </form>
+</ng-template>
+
+<!-- ------------------ not log ----------------------- -->
+<ng-template #not_log>
+  <div class="alert alert-success" role="alert">
+    If you want to write comment for this article
+    <a [routerLink]="['/login']">login</a>
+    please, or if you don't have account
+    <a [routerLink]="['/register']">register</a>
+    first.
+  </div>
+</ng-template>

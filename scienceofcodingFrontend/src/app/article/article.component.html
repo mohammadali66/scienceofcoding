@@ -11,7 +11,7 @@
           <div class="post-thumbnail"><img src="{{ article.image }}" alt="Blog Featured Image"/></div>
           <div class="post-header font-alt">
             <h1 class="post-title">{{ article.title_english }}</h1>
-            <div class="post-meta">By&nbsp;<a  [routerLink]="['/user/authorprofile', article.author.slug]">{{ article.author.username }}</a>| {{ article.updated_date }} | 3 Comments |
+            <div class="post-meta">By&nbsp;<a  [routerLink]="['/user/authorprofile', article.author.slug]">{{ article.author.username }}</a>| {{ article.updated_date }} | {{ article.comment_count }} Comments |
               <a *ngFor="let tag of article.tags" [routerLink]="['/tag', tag.slug]">{{ tag.name }}, </a>
 
             </div>
@@ -20,6 +20,13 @@
 
           </div>
         </div>
+
+        <!-- -------------- Add comment -------------------------------- -->
+        <div class="comment-form">
+          <h4 class="comment-form-title font-alt">Add your comment</h4>
+          <app-comment-create [articleSlug]="article.slug"></app-comment-create>
+        </div>
+
 
         <!-- ------------- Comments --------------------------------------- -->
         <!-- <app-comment-list [comment_list]="article"></app-comment-list> -->

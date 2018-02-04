@@ -7,7 +7,7 @@ from .models import *
 
 class ClientUserAdmin(admin.ModelAdmin):
     
-    list_display = ['id', 'ip_address', 'country', 'city', 'created_datetime', 'updated_datetime',]
+    list_display = ['id', 'ip_address', 'country', 'city', 'created_datetime', 'updated_datetime', ]
 
     fields = [('ip_address', 'isp'), ('country', 'city'), ('altitude', 'longitude'),
                ('created_datetime', 'updated_datetime'), ]
@@ -20,13 +20,13 @@ class ClientUserAdmin(admin.ModelAdmin):
 
 admin.site.register(ClientUser, ClientUserAdmin)
 
-#.............................................................................................................
+# .............................................................................................................
 class PageAdmin(admin.ModelAdmin):
     list_display = ['name']
     
 admin.site.register(Page, PageAdmin)
 
-#.............................................................................................................
+# .............................................................................................................
 class ClientUserOpenedPageAdmin(admin.ModelAdmin):
     list_display = ['clientUser', 'page', 'id', 'open_datetime', 'end_datetime', 'duration', ]
 

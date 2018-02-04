@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-#from django.urls import path, include
+# from django.urls import path, include
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -26,8 +26,9 @@ urlpatterns = [
     url(r'^api/article/', include('articles.urls', namespace='article-api')),
     url(r'^api/tag/', include('tags.urls', namespace='tag-api')),
     url(r'^api/analytics/', include('clientUsers.urls', namespace='clientUsers-api')),
+    url(r'^api/comment/', include('comments.urls', namespace='comment-api')),
     
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 # urlpatterns = [

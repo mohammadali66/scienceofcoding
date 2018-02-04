@@ -11,14 +11,14 @@ from .models import Category
 class CategoryListMenuAPIView(ListAPIView):
     
     serializer_class = serializers.CategoryListMenuSerializer
-    permission_classes = (permissions.AllowAny, )
+    permission_classes = (permissions.AllowAny,)
     queryset = Category.objects.all()
 
-#...............................................................................................................
+# ...............................................................................................................
 class CategoryDetailAPIView(RetrieveAPIView):
     
     serializer_class = serializers.CategoryDetailSerializer
-    permission_classes = (permissions.AllowAny, )
+    permission_classes = (permissions.AllowAny,)
     queryset = Category.objects.all()
     lookup_field = 'slug'
     

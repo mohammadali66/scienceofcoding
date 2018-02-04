@@ -25,7 +25,7 @@ SECRET_KEY = 'udq=@#w(zfn9(24$xati6l%s&kwv-)!4^3i!$1q4pm$*e1p=$^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -63,7 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',    # new
+    'corsheaders.middleware.CorsMiddleware',  # new
 ]
 
 ROOT_URLCONF = 'scienceofcoding_backend.urls'
@@ -71,7 +71,7 @@ ROOT_URLCONF = 'scienceofcoding_backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -159,7 +159,7 @@ CKEDITOR_CONFIGS = {
 
 
 
-CORS_ORIGIN_ALLOW_ALL = True   #new
+CORS_ORIGIN_ALLOW_ALL = True  # new
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -167,7 +167,7 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
-        #'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
     )
 }
 
@@ -182,6 +182,18 @@ CHANNEL_LAYERS = {
         "ROUTING": "scienceofcoding_backend.routing.channel_routing",
     },
 }
+
+
+
+#.........
+#email setting
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'scienceofcoding.ir@gmail.com'
+EMAIL_HOST_PASSWORD = 'ali12BArobik54'
+EMAIL_PORT = 587
+#.........
+
 
 
 

@@ -12,12 +12,12 @@ class CategoryListMenuSerializer(ModelSerializer):
         fields = (
                     'name',
                     'slug',
-                    #'get_api_url',
+                    # 'get_api_url',
                 )
-#..............................................................................................................
+# ..............................................................................................................
 class CategoryDetailSerializer(ModelSerializer):
     
-    #articles = SerializerMethodField()
+    # articles = SerializerMethodField()
     
     class Meta:
         model = Category
@@ -26,7 +26,7 @@ class CategoryDetailSerializer(ModelSerializer):
                     'slug',
                     'description',
                     'image',
-                    #'articles',
+                    # 'articles',
                 )
 
 
