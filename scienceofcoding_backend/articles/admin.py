@@ -7,7 +7,7 @@ from .models import Article
 from clientUsers.models import Page
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ['title_english', 'author', 'category',
+    list_display = ['title_english', 'author', 'id', 'category',
                      'is_active', 'featured', 'view_count', 'created_datetime', 'updated_datetime', ]
     
     filter_horizontal = ('tags',)

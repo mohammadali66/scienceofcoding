@@ -1,4 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { NgForm } from '@angular/forms';
+
+import { CommentService } from '../../services/comment.service';
 
 @Component({
   selector: 'app-comment-create',
@@ -7,16 +10,37 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CommentCreateComponent implements OnInit {
 
-  constructor() { }
+  constructor(private commentService: CommentService) { }
 
   loggedUsername: string = null;
-  @Input() articleSlug: string = '';
+  @Input() articleId: string = '';
+  @Output() commentContent = new EventEmitter<string>();
+  message = '';
 
   ngOnInit() {
     if(localStorage.getItem('username') !== ''){
       this.loggedUsername = localStorage.getItem('username');
     }
-    console.log('slug:  ' + this.articleSlug);
+
+  }
+
+  //----------------------------------------------------------------------------
+  createCommentForm(form: NgForm){
+    let aComment = {
+      'article': this.articleId,
+      'parent': '',
+      'content': form.value.content
+    };
+    this.commentService.createComment(aComment)
+      .subscribe(
+        (data: any) => {
+          this.message = 'your comment has created, successfully!!';
+          this.commentContent.emit(form.value.content);
+        },
+        (error: any) => {
+          this.message = error;
+        }
+      );
   }
 
 }

@@ -42,7 +42,7 @@ class ArticleSerializer(ModelSerializer):
     class Meta:
         model = Article
         fields = (
-                    #'id',
+                    'id',
                     'title_english',
                     'abstract_english',
                     'content_english',

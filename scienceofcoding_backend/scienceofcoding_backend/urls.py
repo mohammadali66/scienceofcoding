@@ -19,8 +19,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 # from django.urls import path, include
 
+from home.views import IndexView
+
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^$', IndexView.as_view(), name='index'),
+    url(r'^admin/', admin.site.urls),    
     url(r'^api/user/', include('users.urls', namespace='users')),
     url(r'^api/category/', include('categories.urls', namespace='category-api')),
     url(r'^api/article/', include('articles.urls', namespace='article-api')),

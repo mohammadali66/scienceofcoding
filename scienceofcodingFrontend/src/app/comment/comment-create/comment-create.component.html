@@ -2,10 +2,13 @@
 
 <!-- ------------------ log ----------------------- -->
 <ng-template #log>
-  <form method="post">
+  {{ message }}
+  <form (ngSubmit)="createCommentForm(f)" #f="ngForm">
 
     <div class="form-group">
-      <textarea class="form-control" id="comment" name="comment" rows="7" placeholder="Comment" dir="auto"></textarea>
+      <textarea class="form-control" id="content" name="content"
+        rows="7" placeholder="Comment" dir="auto"
+        ngModel required content #content="ngModel"></textarea>
     </div>
     <button class="btn btn-round btn-d" type="submit">Post comment</button>
   </form>

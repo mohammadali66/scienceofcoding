@@ -24,7 +24,7 @@
         <!-- -------------- Add comment -------------------------------- -->
         <div class="comment-form">
           <h4 class="comment-form-title font-alt">Add your comment</h4>
-          <app-comment-create [articleSlug]="article.slug"></app-comment-create>
+          <app-comment-create [articleId]="article.id" (commentContent)="addComment($event)"></app-comment-create>
         </div>
 
 
@@ -43,8 +43,22 @@
               <div class="comment-author font-alt">{{ comment.user.username }}</div>
               <div class="comment-body" [innerHTML]="comment.content | safe: 'html'">
               </div>
-              <div class="comment-meta font-alt">{{ comment.updated_datetime }} - <a href="#">Reply</a>
+
+              <!-- ----- reply ----- -->
+              <div class="comment-meta font-alt">{{ comment.updated_datetime }}
+                <span *ngIf="loggedUsername"> -
+                  <a [routerLink]="" (click)="onDisplayReply(comment.id)">Reply</a>
+                </span>
               </div>
+              <div *ngIf="commentIdForDisplayReply == comment.id">
+                <hr>
+                <app-comment-reply
+                    [articleId]="article.id"
+                    [parentCommentId]="comment.id"
+                    (newSubComment)="addReplyComment($event)">
+                  </app-comment-reply>
+              </div>
+
             </div>
             <!-- -------- sub comment ------ -->
             <div class="comment clearfix" *ngFor="let subComment of comment.sub_comment_list">
@@ -57,7 +71,7 @@
                 <div class="comment-author font-alt">{{ subComment.user.username }}</div>
                 <div class="comment-body" [innerHTML]="subComment.content | safe: 'html'">
                 </div>
-                <div class="comment-meta font-alt">{{ subComment.updated_datetime }} - <a href="#">Reply</a>
+                <div class="comment-meta font-alt">{{ subComment.updated_datetime }}
                 </div>
               </div>
             </div>

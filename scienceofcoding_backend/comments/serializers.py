@@ -8,14 +8,15 @@ from users import serializers as users_serializers
 
 class CommentSerializer(ModelSerializer):
     
-    user = SerializerMethodField()
-    article = SerializerMethodField()    
+    user             = SerializerMethodField()
+    article          = SerializerMethodField()    
     updated_datetime = SerializerMethodField()
     sub_comment_list = SerializerMethodField()
     
     class Meta:
         model = Comment
         fields = (
+                    'id',
                     'user',
                     'article',
                     'content',
@@ -108,13 +109,13 @@ class CommentCreateSerializer(ModelSerializer):
     def create(self, validated_data):
         
         article = validated_data['article']
-        parent    = validated_data['parent']
-        content      = validated_data['content'] 
+        parent  = validated_data['parent']
+        content = validated_data['content'] 
         
         comment = Comment(
-                            user = self.context['request'].user,                            
+                            user    = self.context['request'].user,                            
                             article = article,
-                            parent = parent,
+                            parent  = parent,
                             content = content,
                         )
         comment.save()

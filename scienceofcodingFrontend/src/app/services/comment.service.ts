@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Headers, Http, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 import 'rxjs/add/operator/toPromise';
@@ -13,8 +13,16 @@ export class CommentService{
   //...........................................................................
   createComment(aComment: any){
     let url = this.mainUrl + '/api/comment/create/?format=json';
+    let headers = new Headers();
 
-    return this.http.post(url, aComment)
+    if(localStorage.getItem('token') !== ''){
+      headers = new Headers({ 'Authorization': 'Token ' + localStorage.getItem('token') });
+    }else{
+      headers = new Headers({});
+    }
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(url, aComment, options)
       .map(
         (response: Response) => {
           const data = response.json();

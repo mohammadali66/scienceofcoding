@@ -84,6 +84,7 @@ class UserProfileSerializer(ModelSerializer):
 class UserLoginSerializer(ModelSerializer):
     
     token = SerializerMethodField()
+    avatar   = SerializerMethodField()
     
     class Meta:
         model = User
@@ -92,12 +93,14 @@ class UserLoginSerializer(ModelSerializer):
                     'email',
                     'password',                    
                     'token',
+                    'avatar',
                 )
         extra_kwargs = {
                             'username': {'read_only': True, },
                             'email': { 'write_only': True, },
                             'password': {'write_only': True, },                            
                             'token': { 'read_only': True, },
+                            'avatar': { 'read_only': True, },
                         }
 
 
@@ -105,7 +108,14 @@ class UserLoginSerializer(ModelSerializer):
         
         mytoken = Token.objects.get(user=obj)
         return str(mytoken.key)
-
+    
+    
+    def get_avatar(self, obj):
+        try:
+            return obj.userprofile.avatar.url
+        except:
+            return ''
+        
 #...............................................................................................................
 class UserRegisterSerializer(ModelSerializer):
     

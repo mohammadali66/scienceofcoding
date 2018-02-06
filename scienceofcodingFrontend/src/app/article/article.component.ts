@@ -16,7 +16,10 @@ import { Comment } from '../models/comment.model';
 })
 export class ArticleComponent implements OnInit, OnDestroy {
 
+  loggedUsername: string = null;
   article: Article = new Article();
+  newCommentContent: string = '';
+  commentIdForDisplayReply = '0';
 
   constructor(private articleService: ArticleService,
               private websocketService: WebsocketService,
@@ -24,11 +27,17 @@ export class ArticleComponent implements OnInit, OnDestroy {
               ) { }
 
   ngOnInit() {
-
     //get article slug from url ...............................
     this.route.params.subscribe(
       (params: Params) => {
         this.article.slug = params['articleslug'];
+
+        //if user logged in ..................................
+        if(localStorage.getItem('username') !== ''){
+          this.loggedUsername = localStorage.getItem('username');
+        }else{
+          this.loggedUsername = null;
+        }
 
         //get category detail information from API ..............
         this.articleService.getArticle(this.article.slug)
@@ -70,6 +79,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
                 this.article.comments = new Array<Comment>();
                 for(let com of data.comment_list){
                   let comment: Comment = new Comment();
+                  comment.id = com.id;
 
                   let userComment: User = new User();
                   userComment.username = com.user.username;
@@ -85,6 +95,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
                   comment.sub_comment_list = new Array<Comment>();
                   for(let subCom of com.sub_comment_list){
                     let subComment: Comment = new Comment();
+                    subComment.id = subCom.id;
 
                     let userComment2: User = new User();
                     userComment2.username = subCom.user.username;
@@ -99,12 +110,37 @@ export class ArticleComponent implements OnInit, OnDestroy {
                     comment.sub_comment_list.push(subComment);
                   }
                   this.article.comments.push(comment);
-
                 }
-                console.log('article id: ' + this.article.id)
             }
           );
     });
+  }
+  //............................................................................
+  addComment(content: string){
+    let aComment: Comment = new Comment();
+    let userComment: User = new User();
+    userComment.username = localStorage.getItem('username');
+    userComment.avatar = localStorage.getItem('avatar');
+    aComment.user = userComment;
+    aComment.content = content;
+    aComment.updated_datetime = 'now';
+    aComment.sub_comment_list = null;
+
+    this.article.comments.push(aComment);
+  }
+  //............................................................................
+  onDisplayReply(commentId: string){
+    this.commentIdForDisplayReply = commentId;
+  }
+
+  //............................................................................
+  addReplyComment(aComment: Comment){
+    for(let com of this.article.comments){
+      if(com.id == aComment.parentId){
+        com.sub_comment_list.push(aComment);
+        break;
+      }
+    }
   }
   //............................................................................
   ngOnDestroy(){

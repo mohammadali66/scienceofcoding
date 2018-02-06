@@ -36,6 +36,8 @@ import { CommentListComponent } from './comment/comment-list/comment-list.compon
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { CommentCreateComponent } from './comment/comment-create/comment-create.component';
+import { NewDirectiveDirective } from './directives/new-directive.directive';
+import { CommentReplyComponent } from './comment/comment-reply/comment-reply.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { CommentCreateComponent } from './comment/comment-create/comment-create.
     CommentListComponent,
     LoginComponent,
     RegisterComponent,
-    CommentCreateComponent
+    CommentCreateComponent,
+    NewDirectiveDirective,
+    CommentReplyComponent
   ],
   imports: [
     BrowserModule,
