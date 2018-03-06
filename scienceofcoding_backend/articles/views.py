@@ -7,7 +7,6 @@ from . import serializers
 from .models import Article
 from .paginations import StandardResultsSetPagination
 
-
 class ArticleListOfOneCategoryAPIView(ListAPIView):
     serializer_class = serializers.ArticleBriefSerializer
     pagination_class = StandardResultsSetPagination

@@ -11,6 +11,7 @@ from django.dispatch import receiver
 from django.utils import timezone
 
 from clientUsers.models import ClientUser, Page, ClientUserOpenedPage
+from django.contrib.auth.models import User
 
 # ...............................................................................................................
 @channel_session_user_from_http
@@ -27,6 +28,13 @@ def clientUser_receive(message):
     # Get or create clientUser obj
     clientUser = None
     ip_address = data['ip_address']
+    
+    if not message.user.is_authenticated:        
+        print('not authenticated')
+        return
+    else:
+        print('authenticated')
+        
     
     try:
         clientUser = ClientUser.objects.get(ip_address=ip_address)
@@ -72,6 +80,9 @@ def clientUser_receive(message):
     token = data['token']
     
     Group(room_name).add(message.reply_channel)
+    
+    #message.user = User.objects.get(id=1)
+    #message.user = None
     Room_channels_presence.objects.add(room_name, message.reply_channel.name, message.user)
     message.channel_session['room'] = room_name
     
