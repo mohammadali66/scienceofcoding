@@ -8,73 +8,35 @@
       <div class="col-sm-8 col-sm-offset-1">
 
         <h2>Analytics</h2>
+
         <hr>
         <app-weekchart-analytics></app-weekchart-analytics>
         <hr>
+      </div>
+    </div>
+
         <div class="row">
-          <div class="col-md-12">
-            <form class="form-inline" #f="ngForm" (ngSubmit)="getAnalyticsForOneDate(f)">
+          <div class="col-md-6">
+            <form class="form-horizontal" #f="ngForm" (ngSubmit)="getAnalyticsForOneDate(f)">
               <div class="form-group">
-                <label for="">Date:</label>
-                <select class="form-control" name="day" ngModel [(ngModel)]="dayNg">
-                  <option *ngFor="let d of dayName" value="{{ d.value }}">{{ d.name }}</option>
-                </select>
+                <label class="col-md-2 control-label">Date:</label>
 
-                <select class="form-control" name="month" ngModel [(ngModel)]="monthNg">
-                  <option *ngFor="let m of monthName" value="{{ m.value }}">{{ m.name }}</option>
-                </select>
-
-                <select class="form-control" name="year" ngModel [(ngModel)]="yearNg">
-                  <option *ngFor="let y of yearName" value="{{ y.value }}">{{ y.name }}</option>
-                </select>
-
-              </div>
-              <button type="submit" class="btn btn-default btn-sm">Display</button>
-            </form>
-          </div>
-        </div>
-        <hr>
-        <!-- ------------------------------------------------------------- -->
-        <div class="row">
-          <div class="col-md-12">
-            <form class="form-inline" #f2="ngForm" (ngSubmit)="getAnalyticsForTwoDate(f2)">
-              <div class="row">
-                <div class="form-group">
-                  <label class="col-md-2 control-label">from:</label>
-                  <div class="col-md-10">
-                    <select class="form-control" name="fromday" ngModel [(ngModel)]="fromdayNg">
-                      <option *ngFor="let d of dayName" value="{{ d.value }}">{{ d.name }}</option>
-                    </select>
-
-                    <select class="form-control" name="frommonth" ngModel [(ngModel)]="frommonthNg">
-                      <option *ngFor="let m of monthName" value="{{ m.value }}">{{ m.name }}</option>
-                    </select>
-
-                    <select class="form-control" name="fromyear" ngModel [(ngModel)]="fromyearNg">
-                      <option *ngFor="let y of yearName" value="{{ y.value }}">{{ y.name }}</option>
-                    </select>
-                  </div>
-
+                <div class="col-md-3">
+                  <select class="form-control" name="day" ngModel [(ngModel)]="dayNg">
+                    <option *ngFor="let d of dayName" value="{{ d.value }}">{{ d.name }}</option>
+                  </select>
                 </div>
-              </div>
 
-              <div class="row">
-                <div class="form-group">
-                  <label class="col-md-2 control-label">to:</label>
-                  <div class="col-md-10">
-                    <select class="form-control" name="today" ngModel [(ngModel)]="todayNg">
-                      <option *ngFor="let d of dayName" value="{{ d.value }}">{{ d.name }}</option>
-                    </select>
+                <div class="col-md-3">
+                  <select class="form-control" name="month" ngModel [(ngModel)]="monthNg">
+                    <option *ngFor="let m of monthName" value="{{ m.value }}">{{ m.name }}</option>
+                  </select>
+                </div>
 
-                    <select class="form-control" name="tomonth" ngModel [(ngModel)]="tomonthNg">
-                      <option *ngFor="let m of monthName" value="{{ m.value }}">{{ m.name }}</option>
-                    </select>
-
-                    <select class="form-control" name="toyear" ngModel [(ngModel)]="toyearNg">
-                      <option *ngFor="let y of yearName" value="{{ y.value }}">{{ y.name }}</option>
-                    </select>
-                  </div>
-
+                <div class="col-md-3">
+                  <select class="form-control" name="year" ngModel [(ngModel)]="yearNg">
+                    <option *ngFor="let y of yearName" value="{{ y.value }}">{{ y.name }}</option>
+                  </select>
                 </div>
 
               </div>
@@ -84,37 +46,105 @@
                   <button type="submit" class="btn btn-default btn-sm">Display</button>
                 </div>
               </div>
+
+            </form>
+          </div>
+        </div>
+        <hr>
+        <!-- ------------------------------------------------------------- -->
+        <div class="row">
+          <div class="col-md-6">
+            <form class="form-horizontal" #f2="ngForm" (ngSubmit)="getAnalyticsForTwoDate(f2)">
+
+                <div class="form-group">
+                  <label class="col-md-2 control-label">from:</label>
+
+                    <div class="col-md-3">
+                      <select class="form-control" name="fromday" ngModel [(ngModel)]="fromdayNg">
+                        <option *ngFor="let d of dayName" value="{{ d.value }}">{{ d.name }}</option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-3">
+                      <select class="form-control" name="frommonth" ngModel [(ngModel)]="frommonthNg">
+                        <option *ngFor="let m of monthName" value="{{ m.value }}">{{ m.name }}</option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-3">
+                      <select class="form-control" name="fromyear" ngModel [(ngModel)]="fromyearNg">
+                        <option *ngFor="let y of yearName" value="{{ y.value }}">{{ y.name }}</option>
+                      </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-2 control-label">to:</label>
+
+                    <div class="col-md-3">
+                      <select class="form-control" name="today" ngModel [(ngModel)]="todayNg">
+                        <option *ngFor="let d of dayName" value="{{ d.value }}">{{ d.name }}</option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-3">
+                      <select class="form-control" name="tomonth" ngModel [(ngModel)]="tomonthNg">
+                        <option *ngFor="let m of monthName" value="{{ m.value }}">{{ m.name }}</option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-3">
+                      <select class="form-control" name="toyear" ngModel [(ngModel)]="toyearNg">
+                        <option *ngFor="let y of yearName" value="{{ y.value }}">{{ y.name }}</option>
+                      </select>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-default btn-sm">Display</button>
+                  </div>
+                </div>
+
             </form>
           </div>
         </div>
         <!-- ---------------------------------------------------------------->
         <hr>
         <div class="row">
-          <div class="col-md-12">
+
             <div *ngIf="pageList">
+              <div class="col-md-6" *ngFor="let page of pageList">
               <!-- <ul class="list-group"> -->
-                <div class="panel panel-primary" *ngFor="let page of pageList">
+                <div class="panel panel-default">
                   <div class="panel-heading">{{ page.name }} <span class="badge">{{ page.clientUserOpenedPage_list.length }}</span></div>
                   <div class="panel-body">
-                    <ul>
-                      <li *ngFor="let cp of page.clientUserOpenedPage_list">
-                        <span style="color: maroon;">{{ cp.ip }} :</span> {{ cp.open_date }} - {{ cp.open_time }}
-                        <span style="color: green;">to</span> {{ cp.end_date }} - {{ cp.end_time }}
-                        [{{ cp.duration }}]
-                      </li>
-                    </ul>
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>ip</th>
+                          <th>start</th>
+                          <th>end</th>
+                          <th>duration</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let cp of page.clientUserOpenedPage_list">
+                          <td>{{ cp.ip }}</td>
+                          <td>{{ cp.open_date }} - {{ cp.open_time }}</td>
+                          <td>{{ cp.end_date }} - {{ cp.end_time }}</td>
+                          <td>{{ cp.duration }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
-
-
-
                 </div>
               <!-- </ul> -->
             </div>
-
           </div>
         </div>
       </div>
 
-    </div><!-- row -->
-  </div><!-- container -->
+
+
 </section>

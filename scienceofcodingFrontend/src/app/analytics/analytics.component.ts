@@ -16,15 +16,15 @@ export class AnalyticsComponent implements OnInit {
   dayName;
   monthName;
   yearName;
-  dayNg = "26";
-  monthNg = "12";
-  yearNg = "2017";
-  fromdayNg = "26";
-  frommonthNg = "12";
-  fromyearNg = "2017";
-  todayNg = "26";
-  tomonthNg = "12";
-  toyearNg = "2017";
+  dayNg = "06";
+  monthNg = "03";
+  yearNg = "2018";
+  fromdayNg = "06";
+  frommonthNg = "03";
+  fromyearNg = "2018";
+  todayNg = "07";
+  tomonthNg = "03";
+  toyearNg = "2018";
   pageList: Array<Page>;
   constructor(private analyticsService: AnalyticsService) {
     // day :
