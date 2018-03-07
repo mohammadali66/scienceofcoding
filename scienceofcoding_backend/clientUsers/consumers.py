@@ -28,10 +28,11 @@ def clientUser_receive(message):
     # Get or create clientUser obj
     clientUser = None
     ip_address = data['ip_address']
-    
-    if not message.user.is_authenticated:        
+    print('ip: ' + ip_address)
+
+    if not message.user.is_authenticated:
         print('not authenticated')
-        return
+
     else:
         print('authenticated')
         
@@ -81,9 +82,11 @@ def clientUser_receive(message):
     
     Group(room_name).add(message.reply_channel)
     
-    #message.user = User.objects.get(id=1)
+    #message.user = User.objects.get(username='ali')
+    #print('username: %s' % (message.user.username))
     #message.user = None
-    Room_channels_presence.objects.add(room_name, message.reply_channel.name, message.user)
+    #Room_channels_presence.objects.add(room_name, message.reply_channel.name, message.user)
+    Room_channels_presence.objects.add(room_name, message.reply_channel.name)
     message.channel_session['room'] = room_name
     
     print(room_name)    
@@ -106,7 +109,7 @@ def clientUser_disconnect(message):
     clientUserOpenedPageId = message.channel_session['clientUserOpenedPageId']
     clientUserOpenedPage = ClientUserOpenedPage.objects.get(id=clientUserOpenedPageId)
     clientUserOpenedPage.end_datetime = timezone.now()
-    clientUserOpenedPage.save()        
+    clientUserOpenedPage.save()
     
     # close from room
     room_name = message.channel_session['room']

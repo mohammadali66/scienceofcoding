@@ -88,7 +88,7 @@ export class AnalyticsComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    //console.log("date: " + Date.;
   }
 
   //============================================================================

@@ -70,7 +70,6 @@ export class WebsocketService{
       _self.data = JSON.parse(event.data);
     };
   }
-
   //............................................................
   //function close websocket
   closeWebsocket(){

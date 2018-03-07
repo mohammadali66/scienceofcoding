@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+import { ChartsModule } from 'ng2-charts';
 
 //import {DpDatePickerModule} from 'ng2-date-picker';
 //import {DatePickerModule} from 'ng2-datepicker-bootstrap';
@@ -38,6 +39,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { CommentCreateComponent } from './comment/comment-create/comment-create.component';
 import { NewDirectiveDirective } from './directives/new-directive.directive';
 import { CommentReplyComponent } from './comment/comment-reply/comment-reply.component';
+import { WeekchartAnalyticsComponent } from './analytics/weekchart-analytics/weekchart-analytics.component';
 
 @NgModule({
   declarations: [
@@ -60,13 +62,15 @@ import { CommentReplyComponent } from './comment/comment-reply/comment-reply.com
     RegisterComponent,
     CommentCreateComponent,
     NewDirectiveDirective,
-    CommentReplyComponent
+    CommentReplyComponent,
+    WeekchartAnalyticsComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ChartsModule
   ],
   providers: [
     UserService,
