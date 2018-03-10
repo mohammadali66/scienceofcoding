@@ -25,7 +25,8 @@ export class AnalyticsComponent implements OnInit {
   todayNg = "07";
   tomonthNg = "03";
   toyearNg = "2018";
-  pageList: Array<Page>;
+  pageList: Array<Page>;  
+
   constructor(private analyticsService: AnalyticsService) {
     // day :
     this.dayName = [

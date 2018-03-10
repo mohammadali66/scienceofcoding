@@ -23,8 +23,23 @@ def clientUser_connect(message):
 @touch_presence
 @channel_session_user
 def clientUser_receive(message):
-    data = json.loads(message['text'])    
-    
+
+    data = json.loads(message['text'])
+
+    #this request is from analytics component in angular : . . . . . . . . . . . . . .
+    if data['repeattext'] == 'heartbeat':
+        #send today statistic to frontend
+        today_view_count = ClientUserOpenedPage.objects.filter(open_datetime__date=timezone.now().date()).count()
+        room_name = 'analytics'
+        Group(room_name).add(message.reply_channel)
+        my_dict = {
+            'todaycount': today_view_count,
+        }
+        Group(room_name).send({'text': json.dumps(my_dict)})
+        return
+    #. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+
     # Get or create clientUser obj
     clientUser = None
     ip_address = data['ip_address']

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 
 import { AnalyticsService } from '../../services/analytics.service';
 
@@ -9,7 +10,10 @@ import { AnalyticsService } from '../../services/analytics.service';
   styleUrls: ['./weekchart-analytics.component.css']
 })
 export class WeekchartAnalyticsComponent implements OnInit {
+
+  @ViewChild("baseChart") chart: BaseChartDirective;  //name of chart from html
   dayCount = 7;
+  private socket: any;
 
   // lineChart
   public lineChartData:Array<any> = [
@@ -61,19 +65,49 @@ export class WeekchartAnalyticsComponent implements OnInit {
   //............................................................................
   constructor(private analyticsService: AnalyticsService) { }
 
-
+  //............................................................................
   ngOnInit() {
     this.analyticsService.getCountViewFromDayUntilNow(this.dayCount).subscribe(
       (data: any) => {
         this.lineChartData = [{data: data.chart_data, label: 'viewer count'}];
-
         for(let i=0; i<this.dayCount; i++){
           this.lineChartLabels[i] = data.chart_title[i];
         }
       }
-
     );
+    //. . . . . . . . . . . . . . . . . . . . . . . . .
+    this.refresh_data_chart();
   }
   //............................................................................
+  refresh_data_chart(){
+    //. . .refresh the chart every time_refresh . . . . . .
+    let time_refresh = 60000 //millisecond
+    //connect to server via websocket
+    this.socket = new WebSocket("ws://localhost:8000/clientuser/");
+    this.socket.onopen = function(){ }
 
+    //repeat send function every time_refresh
+    setInterval(()=>{
+      let message = {
+        repeattext: "heartbeat"
+      };
+      this.socket.send(JSON.stringify(message));
+    },time_refresh);
+
+    //receive data from server via websocket
+    this.socket.onmessage = (event) => {
+      let received_data = JSON.parse(event.data)
+      this.lineChartData[0].data[0] = received_data.todaycount;
+
+      //refresh data of chart
+      if (this.chart !== undefined) {
+         this.chart.chart.destroy();
+         this.chart.chart = 0;
+
+         this.chart.datasets = this.lineChartData;
+         //this.chart.labels = this.labels;
+         this.chart.ngOnInit();
+      }
+    };
+  }
 }
