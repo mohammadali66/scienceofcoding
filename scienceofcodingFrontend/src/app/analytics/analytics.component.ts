@@ -25,7 +25,7 @@ export class AnalyticsComponent implements OnInit {
   todayNg = "07";
   tomonthNg = "03";
   toyearNg = "2018";
-  pageList: Array<Page>;  
+  pageList: Array<Page>;
 
   constructor(private analyticsService: AnalyticsService) {
     // day :
@@ -108,6 +108,8 @@ export class AnalyticsComponent implements OnInit {
           for(let cp of p.clientUserOpenedPage_list){
             let clientUserOpenedPage: ClientUserOpenedPage = new ClientUserOpenedPage();
             clientUserOpenedPage.ip = cp.clientUser;
+            clientUserOpenedPage.country = cp.country;
+            clientUserOpenedPage.city = cp.city;
             clientUserOpenedPage.open_date = cp.open_date;
             clientUserOpenedPage.open_time = cp.open_time;
             clientUserOpenedPage.end_date = cp.end_date;
@@ -142,6 +144,8 @@ export class AnalyticsComponent implements OnInit {
           for(let cp of p.clientUserOpenedPage_list){
             let clientUserOpenedPage: ClientUserOpenedPage = new ClientUserOpenedPage();
             clientUserOpenedPage.ip = cp.clientUser;
+            clientUserOpenedPage.country = cp.country;
+            clientUserOpenedPage.city = cp.city;
             clientUserOpenedPage.open_date = cp.open_date;
             clientUserOpenedPage.open_time = cp.open_time;
             clientUserOpenedPage.end_date = cp.end_date;

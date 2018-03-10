@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import datetime
+from django.utils import timezone
 
 from rest_framework.generics import ListAPIView
 from rest_framework import permissions, status
@@ -11,8 +12,12 @@ from . import serializers
 
 
 class PageAPIView(APIView):
-    
+
+    #if instead of real date, use notation '1000-01-01', it set today date.
     def get(self, request, date, *args, **kwargs):
+        if date == '1000-01-01':     #a notation for today
+            date = '%s' % timezone.now().date()
+
         try:
             #page list that opened in this datetime:
             pageList = Page.objects.filter(clientuseropenedpage__open_datetime__date=date).distinct()

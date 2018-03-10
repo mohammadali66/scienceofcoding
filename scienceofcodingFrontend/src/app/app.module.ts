@@ -40,6 +40,7 @@ import { CommentCreateComponent } from './comment/comment-create/comment-create.
 import { NewDirectiveDirective } from './directives/new-directive.directive';
 import { CommentReplyComponent } from './comment/comment-reply/comment-reply.component';
 import { WeekchartAnalyticsComponent } from './analytics/weekchart-analytics/weekchart-analytics.component';
+import { TodayAnalyticsComponent } from './analytics/today-analytics/today-analytics.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { WeekchartAnalyticsComponent } from './analytics/weekchart-analytics/wee
     CommentCreateComponent,
     NewDirectiveDirective,
     CommentReplyComponent,
-    WeekchartAnalyticsComponent
+    WeekchartAnalyticsComponent,
+    TodayAnalyticsComponent
   ],
   imports: [
     BrowserModule,

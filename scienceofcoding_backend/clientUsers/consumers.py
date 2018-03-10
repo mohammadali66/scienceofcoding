@@ -26,7 +26,7 @@ def clientUser_receive(message):
 
     data = json.loads(message['text'])
 
-    #this request is from analytics component in angular : . . . . . . . . . . . . . .
+    #this request is from week chart analytics component in angular : . . . . . . . . . . . . . .
     if data['repeattext'] == 'heartbeat':
         #send today statistic to frontend
         today_view_count = ClientUserOpenedPage.objects.filter(open_datetime__date=timezone.now().date()).count()
