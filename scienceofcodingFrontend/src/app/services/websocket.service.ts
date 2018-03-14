@@ -11,6 +11,7 @@ export class WebsocketService{
   //private id:any;
   private data:any;
   public isCalled: boolean;
+
   constructor(private http: Http){
     //this.socket = new WebSocket("ws://localhost:8000/clientuser/");
     this.ipInfo = "";
@@ -59,6 +60,7 @@ export class WebsocketService{
         altitude: _self.ipInfo.lat,
         longitude: _self.ipInfo.lon,
         room_name: room_name,
+        repeattext: '', //it used in analytics component
         token: ""
       };
       //this.socket.send(JSON.stringify(clientMessage));
@@ -70,7 +72,6 @@ export class WebsocketService{
       _self.data = JSON.parse(event.data);
     };
   }
-
   //............................................................
   //function close websocket
   closeWebsocket(){

@@ -1,0 +1,45 @@
+<h2>Today</h2>
+<hr>
+<div class="row">
+
+    <div *ngIf="pageList">
+      <div class="col-md-12" *ngFor="let page of pageList">
+      <!-- <ul class="list-group"> -->
+        <div class="panel panel-default" style="font-size:0.8em;">
+          <div class="panel-heading">{{ page.name }} <span class="badge">{{ page.clientUserOpenedPage_list.length }}</span></div>
+          <div class="panel-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>ip</th>
+                  <th>country/city</th>
+                  <th>start</th>
+                  <th>end</th>
+                  <th>duration</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let cp of page.clientUserOpenedPage_list">
+                  <td>{{ cp.ip }}</td>
+                  <td>
+                    <img src="assets/images/flags/{{ cp.country }}.png"
+                        title="{{ cp.country }}/{{ cp.city }}"
+                        alt="{{ cp.country }}/{{ cp.city }}"
+                        class="img-responsive">
+                  </td>
+                  <td>{{ cp.open_time }}</td>
+                  <td>{{ cp.end_time }}</td>
+                  <td>
+                    <div *ngIf="cp.duration == '0 min'; then online else duration"></div>
+                    <ng-template #duration>{{ cp.duration }}</ng-template>
+                    <ng-template #online><div class="online">online</div></ng-template>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      <!-- </ul> -->
+    </div>
+  </div>
+</div>

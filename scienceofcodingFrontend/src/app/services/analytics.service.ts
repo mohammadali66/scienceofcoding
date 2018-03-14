@@ -7,7 +7,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class AnalyticsService{
 
-  private mainUrl = 'http://127.0.0.1:8000';
+  private mainUrl = 'http://127.0.0.1:8000';  
 
   constructor(private http: Http){}
 
@@ -56,5 +56,26 @@ export class AnalyticsService{
         }
       );
   }
+  //............................................................................
+  getCountViewFromDayUntilNow(day:number){
+    let url = this.mainUrl + '/api/analytics/viewcount/' + day + '/?format=json';
+    // let headers = new Headers();
+    // headers.append('Content-Type', 'application/json');
+    // headers.append('Access-Control-Allow-Origin', '*');
 
+    // return this.http.get(url, headers)
+    return this.http.get(url)
+      .map(
+        (response: Response) => {
+          const data = response.json();
+          console.log(data);
+          return data;
+        }
+      )
+      .catch(
+        (error: Response) => {
+          return Observable.throw("Date is invalid!!");
+        }
+      );
+  }
 }
