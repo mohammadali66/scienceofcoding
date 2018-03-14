@@ -13,6 +13,7 @@ urlpatterns = [
                 views.ArticleListOfOneTagAPIView.as_view(), name='articlestag'),
                
     url(r'^detail/(?P<slug>[\w-]+)/$', views.ArticleAPIView.as_view(), name='detail'),
+    url(r'^lastarticle/(?P<count>[\d]+)/$', views.LastArticleAPIView.as_view(), name='lastarticle'),
     
 ]
 

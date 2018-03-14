@@ -77,7 +77,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
               }
             );
       });
-
+      window.scrollTo(0, 0);    //scroll to top page
 
   }
   //............................................................................

@@ -114,6 +114,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
             }
           );
     });
+    window.scrollTo(0, 0);    //scroll to top page
   }
   //............................................................................
   addComment(content: string){

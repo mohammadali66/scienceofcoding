@@ -1,3 +1,7 @@
+from django.utils import timezone
+import datetime
+import pytz
+
 from .models import Page, ClientUser, ClientUserOpenedPage
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
@@ -47,7 +51,8 @@ class ClientUserOpenedPageSerializer(ModelSerializer):
     
     def get_open_time(self, obj):
         if obj.open_datetime:
-            time_str = '%s:%s' % (obj.open_datetime.hour, obj.open_datetime.minute)
+            #for local time, we use timezone.localtime()
+            time_str = '%s:%s' % (timezone.localtime(obj.open_datetime).hour, timezone.localtime(obj.open_datetime).minute)
             return time_str
         return ''
         
@@ -61,7 +66,8 @@ class ClientUserOpenedPageSerializer(ModelSerializer):
     
     def get_end_time(self, obj):
         if obj.end_datetime:
-            time_str = '%s:%s' % (obj.end_datetime.hour, obj.end_datetime.minute)
+            # for local time, we use timezone.localtime()
+            time_str = '%s:%s' % (timezone.localtime(obj.end_datetime).hour, timezone.localtime(obj.end_datetime).minute)
             return time_str
         return ''
     

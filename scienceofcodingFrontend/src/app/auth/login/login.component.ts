@@ -1,20 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { AuthService } from '../../services/auth.service';
+import { WebsocketService } from '../../services/websocket.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   errorMessage: string;
 
   constructor(private authService: AuthService,
+              private websocketService: WebsocketService,
               private router: Router,
               private location: Location) { }
 
@@ -23,6 +25,12 @@ export class LoginComponent implements OnInit {
     if(localStorage.getItem('username')){
       this.router.navigate(['/']);
     }
+    //websocket  .............................................
+    let page_name = 'login';
+    this.websocketService.clientUserSocket(page_name);
+    //......................................................
+
+    window.scrollTo(0, 0);    //scroll to top page
   }
   //----------------------------------------------------------------------------
   loginUserForm(form: NgForm){
@@ -50,5 +58,9 @@ export class LoginComponent implements OnInit {
         }
       );
 
+  }
+  //............................................................................
+  ngOnDestroy(){
+    this.websocketService.closeWebsocket();
   }
 }

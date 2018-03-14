@@ -1,25 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
+import { WebsocketService } from '../../services/websocket.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
 
   errorMessage: string;
 
   constructor(private authService: AuthService,
+              private websocketService: WebsocketService,
               private router: Router) { }
 
   ngOnInit() {
     if(localStorage.getItem('username')){
       this.router.navigate(['/']);
     }
+    //websocket  .............................................
+    let page_name = 'register';
+    this.websocketService.clientUserSocket(page_name);
+
+    window.scrollTo(0, 0);    //scroll to top page
   }
   //............................................................................
   registerUserForm(form: NgForm){
@@ -44,5 +51,9 @@ export class RegisterComponent implements OnInit {
           this.errorMessage = error;
         }
       );
+  }
+  //............................................................................
+  ngOnDestroy(){
+    this.websocketService.closeWebsocket();
   }
 }

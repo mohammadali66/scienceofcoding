@@ -26,6 +26,7 @@ export class NavigationComponent implements OnInit {
           category.slug = cat.slug;
           this.categoryList.push(category);
         }
+        
       }
     );
 

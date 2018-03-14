@@ -41,6 +41,7 @@ import { NewDirectiveDirective } from './directives/new-directive.directive';
 import { CommentReplyComponent } from './comment/comment-reply/comment-reply.component';
 import { WeekchartAnalyticsComponent } from './analytics/weekchart-analytics/weekchart-analytics.component';
 import { TodayAnalyticsComponent } from './analytics/today-analytics/today-analytics.component';
+import { CategoryLastArticleComponent } from './home/category-last-article/category-last-article.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { TodayAnalyticsComponent } from './analytics/today-analytics/today-analy
     NewDirectiveDirective,
     CommentReplyComponent,
     WeekchartAnalyticsComponent,
-    TodayAnalyticsComponent
+    TodayAnalyticsComponent,
+    CategoryLastArticleComponent
   ],
   imports: [
     BrowserModule,

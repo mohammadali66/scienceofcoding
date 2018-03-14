@@ -89,7 +89,7 @@ export class AnalyticsComponent implements OnInit {
   }
 
   ngOnInit() {
-    //console.log("date: " + Date.;
+    window.scrollTo(0, 0);    //scroll to top page
   }
 
   //============================================================================

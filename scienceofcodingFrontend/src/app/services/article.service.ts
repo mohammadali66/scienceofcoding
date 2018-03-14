@@ -81,4 +81,18 @@ export class ArticleService{
         }
       );
   }
+  //...........................................................................
+  //get last article
+  getLastArticle(count: string){
+
+    let url = this.mainUrl + '/api/article/lastarticle/' + count + '/?format=json';
+
+    return this.http.get(url)
+      .map(
+        (response: Response) => {
+          const data = response.json();
+          return data;
+        }
+      );
+  }
 }

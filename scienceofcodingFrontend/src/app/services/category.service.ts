@@ -4,10 +4,12 @@ import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 import 'rxjs/add/operator/toPromise';
 
+import { Category } from '../models/category.model';
 
 @Injectable()
 export class CategoryService{
-  private mainUrl = 'http://127.0.0.1:8000';
+
+  private mainUrl = 'http://127.0.0.1:8000';  
 
   constructor(private http: Http){}
 
@@ -37,6 +39,20 @@ export class CategoryService{
     // headers.append('Access-Control-Allow-Origin', '*');
 
     // return this.http.get(url, headers)
+    return this.http.get(url)
+      .map(
+        (response: Response) => {
+          const data = response.json();
+          // console.log(data);
+          return data;
+        }
+      );
+  }
+
+  //............................................................................
+  getCategoryLastArticle(){
+    let url = this.mainUrl + '/api/category/categorylastarticle/?format=json';
+
     return this.http.get(url)
       .map(
         (response: Response) => {
