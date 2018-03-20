@@ -1,0 +1,79 @@
+<section class="featured-posts">
+  <div class="container">
+    <!-- Article 0 -->
+    <div *ngIf="articleList[0]" class="row d-flex align-items-stretch">
+      <div class="text col-lg-7">
+        <div class="text-inner d-flex align-items-center">
+          <div class="content">
+            <header class="post-header">
+              <div class="category"><a [routerLink]="['/category', articleList[0].category.slug]">{{ articleList[0].category.name }}</a></div>
+              <a [routerLink]="['/article', articleList[0].slug]">
+                <h2 class="h4">{{ articleList[0].title_english }}</h2>
+              </a>
+            </header>
+            <p>{{ articleList[0].abstract_english }}</p>
+            <footer class="post-footer d-flex align-items-center">
+              <a [routerLink]="['/user/authorprofile', articleList[0].author.slug]" class="author d-flex align-items-center flex-wrap">
+                <div class="avatar"><img src="{{ articleService.mainUrl }}{{ articleList[0].author.avatar }}" alt="{{ articleList[0].author.username }}" class="img-fluid"></div>
+                <div class="title"><span>{{ articleList[0].author.username }}</span></div>
+              </a>
+              <div class="date"><i class="icon-clock"></i>{{ articleList[0].updated_date }}</div>
+            </footer>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5"><img style="height:100%; width:100%;" src="{{ articleService.mainUrl }}{{ articleList[0].image }}" alt="{{ articleList[0].title_english }}"></div>
+      <!-- <div class="image col-lg-5" style="border:1px solid blue;"><img height="100%" src="{{ articleService.mainUrl }}{{ articleList[0].image }}" alt="{{ articleList[0].title_english }}"></div> -->
+    </div>
+
+    <!-- Article 1 -->
+    <div *ngIf="articleList[1]" class="row d-flex align-items-stretch">
+      <div class="col-lg-5"><img width="100%" height="100%" src="{{ articleService.mainUrl }}{{ articleList[1].image }}" alt="{{ articleList[1].title_english }}"></div>
+      <div class="text col-lg-7">
+        <div class="text-inner d-flex align-items-center">
+          <div class="content">
+            <header class="post-header">
+              <div class="category"><a [routerLink]="['/category', articleList[1].category.slug]">{{ articleList[1].category.name }}</a></div>
+              <a [routerLink]="['/article', articleList[1].slug]">
+                <h2 class="h4">{{ articleList[1].title_english }}</h2>
+              </a>
+            </header>
+            <p>{{ articleList[1].abstract_english }}</p>
+            <footer class="post-footer d-flex align-items-center">
+              <a [routerLink]="['/user/authorprofile', articleList[1].author.slug]" class="author d-flex align-items-center flex-wrap">
+                <div class="avatar"><img src="{{ articleService.mainUrl }}{{ articleList[1].author.avatar }}" alt="{{ articleList[1].author.username }}" class="img-fluid"></div>
+                <div class="title"><span>{{ articleList[1].author.username }}</span></div>
+              </a>
+              <div class="date"><i class="icon-clock"></i>{{ articleList[1].updated_date }}</div>
+            </footer>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Article 2 -->
+    <div *ngIf="articleList[2]" class="row d-flex align-items-stretch">
+      <div class="text col-lg-7">
+        <div class="text-inner d-flex align-items-center">
+          <div class="content">
+            <header class="post-header">
+              <div class="category"><a [routerLink]="['/category', articleList[2].category.slug]">{{ articleList[2].category.name }}</a></div>
+              <a [routerLink]="['/article', articleList[2].slug]">
+                <h2 class="h4">{{ articleList[2].title_english }}</h2>
+              </a>
+            </header>
+            <p>{{ articleList[2].abstract_english }}</p>
+            <footer class="post-footer d-flex align-items-center">
+              <a [routerLink]="['/user/authorprofile', articleList[2].author.slug]" class="author d-flex align-items-center flex-wrap">
+                <div class="avatar"><img src="{{ articleService.mainUrl }}{{ articleList[2].author.avatar }}" alt="{{ articleList[2].author.username }}" class="img-fluid"></div>
+                <div class="title"><span>{{ articleList[2].author.username }}</span></div>
+              </a>
+              <div class="date"><i class="icon-clock"></i>{{ articleList[2].updated_date }}</div>
+            </footer>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5"><img width="100%" height="100%" src="{{ articleService.mainUrl }}{{ articleList[2].image }}" alt="{{ articleList[0].title_english }}"></div>
+    </div>
+  </div>
+</section>

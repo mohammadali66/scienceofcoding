@@ -5,13 +5,15 @@ from comments.models import Comment
 from tags import serializers as tags_serializers
 from users import serializers as users_serializers
 from comments import serializers as comments_serializers
+from categories import serializers as category_serializers
 
 
 class ArticleBriefSerializer(ModelSerializer):
     
     author = SerializerMethodField()
     updated_datetime = SerializerMethodField()
-    
+    category = SerializerMethodField()
+
     class Meta:
         model = Article
         fields = (
@@ -21,6 +23,7 @@ class ArticleBriefSerializer(ModelSerializer):
                     'image',
                     'updated_datetime',
                     'author',
+                    'category',
                     'get_api_url',
                 )
 
@@ -28,7 +31,10 @@ class ArticleBriefSerializer(ModelSerializer):
         return users_serializers.UserBriefSerializer(obj.author).data
     
     def get_updated_datetime(self, obj):
-        return str(obj.updated_datetime.date())    
+        return str(obj.updated_datetime.date())
+
+    def get_category(self, obj):
+        return category_serializers.CategoryListMenuSerializer(obj.category).data
 
 # ................................................................................................................
 class ArticleSerializer(ModelSerializer):

@@ -95,4 +95,17 @@ export class ArticleService{
         }
       );
   }
+//...........................................................................
+  //get most view article
+  getMostViewArticle(count: string){
+  let url = this.mainUrl + '/api/article/mostviewarticle/' + count + '/?format=json';
+
+  return this.http.get(url)
+    .map(
+      (response: Response) => {
+        const data = response.json();
+        return data;
+      }
+    );
+  }
 }

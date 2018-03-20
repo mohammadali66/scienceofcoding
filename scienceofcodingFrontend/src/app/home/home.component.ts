@@ -62,6 +62,11 @@ export class HomeComponent implements OnInit, OnDestroy {
           article.author.username = art.author.username;
           article.author.slug = art.author.slug;
 
+          let category: Category = new Category();
+          category.name = art.category.name;
+          category.slug = art.category.slug;
+          article.category = category;
+
           article.updated_date = art.updated_datetime;
           article.url = art.get_api_url;
 

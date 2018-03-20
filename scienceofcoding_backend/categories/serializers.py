@@ -50,8 +50,9 @@ class CategoryLastArticleSerializer(ModelSerializer):
                     'slug',
                     'articles',
                 )
+
     def get_articles(self, obj):
-        articleList = Article.objects.filter(is_active=True, category=obj).order_by('-updated_datetime')[:4]
+        articleList = Article.objects.filter(is_active=True, category=obj).order_by('-updated_datetime')[:3]
         articles = article_serializers.ArticleBriefSerializer(articleList, many=True).data
         return articles
 

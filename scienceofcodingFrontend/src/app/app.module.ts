@@ -42,6 +42,7 @@ import { CommentReplyComponent } from './comment/comment-reply/comment-reply.com
 import { WeekchartAnalyticsComponent } from './analytics/weekchart-analytics/weekchart-analytics.component';
 import { TodayAnalyticsComponent } from './analytics/today-analytics/today-analytics.component';
 import { CategoryLastArticleComponent } from './home/category-last-article/category-last-article.component';
+import { MostViewArticleComponent } from './home/most-view-article/most-view-article.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { CategoryLastArticleComponent } from './home/category-last-article/categ
     CommentReplyComponent,
     WeekchartAnalyticsComponent,
     TodayAnalyticsComponent,
-    CategoryLastArticleComponent
+    CategoryLastArticleComponent,
+    MostViewArticleComponent
   ],
   imports: [
     BrowserModule,

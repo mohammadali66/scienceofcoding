@@ -1,6 +1,7 @@
 import { Tag } from './tag.model';
 import { User } from './user.model';
 import { Comment } from './comment.model';
+import { Category } from './category.model';
 
 export class Article{
 
@@ -21,6 +22,7 @@ export class Article{
 
   public tags: Tag[];
   public comments: Array<Comment>;
-
+  public category: Category;
+  
   constructor(){}
 }

@@ -30,8 +30,10 @@ export class CategoryLastArticleComponent implements OnInit {
           for(let art of cat.articles){
             let article: Article = new Article();
             article.title_english = art.title_english;
+            article.abstract_english = art.abstract_english;
             article.slug = art.slug;
             article.image = art.image;
+            article.updated_date = art.updated_datetime;
             articleList.push(article);
 
             //initialize articleList_forDisplay for All option
