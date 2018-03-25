@@ -6,6 +6,7 @@ export class Category{
   public slug: string;
   public description: string;
   public image: string;
+  public articles_count:any;
   public category_articles: Article[];
 
   constructor(){}

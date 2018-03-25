@@ -6,14 +6,24 @@ from articles.models import Article
 
 
 class CategoryListMenuSerializer(ModelSerializer):
-    
+
+    articles_count = SerializerMethodField();
+
     class Meta:
         model = Category
         fields = (
                     'name',
                     'slug',
+                    'articles_count',
                     # 'get_api_url',
                 )
+
+    def get_articles_count(self, obj):
+        try:
+            count = Article.objects.filter(category=obj).count()
+            return count
+        except:
+            return 0
 # ..............................................................................................................
 class CategoryDetailSerializer(ModelSerializer):
     

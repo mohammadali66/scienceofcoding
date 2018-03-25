@@ -27,4 +27,18 @@ export class TagService{
         }
       );
   }
+
+  //............................................................................
+  getAllTag(){
+    let url = this.mainUrl + '/api/tag/all/?format=json';
+    
+    return this.http.get(url)
+      .map(
+        (response: Response) => {
+          const data = response.json();
+          console.log(data);
+          return data;
+        }
+      );
+  }
 }

@@ -17,12 +17,13 @@ export class Article{
   public author: User = new User();
   public updated_date: string;
   public url:string;
+  public view_count: string;
 
   public comment_count: string;
 
   public tags: Tag[];
   public comments: Array<Comment>;
   public category: Category;
-  
+
   constructor(){}
 }

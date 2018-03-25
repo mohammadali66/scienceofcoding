@@ -25,6 +25,7 @@ class ArticleBriefSerializer(ModelSerializer):
                     'author',
                     'category',
                     'get_api_url',
+                    'view_count',
                 )
 
     def get_author(self, obj):

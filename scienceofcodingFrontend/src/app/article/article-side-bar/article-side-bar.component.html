@@ -1,18 +1,57 @@
-<div class="widget">
-  <form role="form">
-    <div class="search-box">
-      <input class="form-control" type="text" placeholder="Search..."/>
-      <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
+<!-- Widget [Search Bar Widget]-->
+<div class="widget search">
+  <header>
+    <h3 class="h6">Search the article blog</h3>
+  </header>
+  <form action="#" class="search-form">
+    <div class="form-group">
+      <input type="search" placeholder="What are you looking for?">
+      <button type="submit" class="submit"><i class="icon-search"></i></button>
     </div>
   </form>
 </div>
-<div class="widget">
-  <h5 class="widget-title font-alt">Blog Categories</h5>
-  <ul class="icon-list">
-    <li><a href="#">Photography - 7</a></li>
-    <li><a href="#">Web Design - 3</a></li>
-    <li><a href="#">Illustration - 12</a></li>
-    <li><a href="#">Marketing - 1</a></li>
-    <li><a href="#">Wordpress - 16</a></li>
+
+
+<!-- Widget [Latest Posts Widget]        -->
+<div class="widget latest-posts">
+  <header>
+    <h3 class="h6">Most View Articles</h3>
+  </header>
+  <div class="blog-posts">
+    <a *ngFor="let article of articleList" [routerLink]="['/article', article.slug]">
+      <div class="item d-flex align-items-center">
+        <div class="image"><img src="{{ articleService.mainUrl }}{{ article.image }}" alt="..." class="img-fluid"></div>
+        <div class="title" style="font-size:0.8em;"><strong>{{ article.title_english }}</strong>
+          <div class="d-flex align-items-center">
+            <div class="views"><i class="icon-eye"></i> {{ article.view_count }}</div>
+            <div class="comments"><i class="icon-clock"></i>{{ article.updated_date }}</div>
+          </div>
+        </div>
+      </div></a></div>
+</div>
+
+
+
+<!-- Widget [Categories Widget]-->
+<div class="widget categories">
+  <header>
+    <h3 class="h6">Categories</h3>
+  </header>
+  <div class="item d-flex justify-content-between" *ngFor="let category of categoryList">
+    <a [routerLink]="['/category', category.slug]">{{ category.name }}</a><span>{{ category.articles_count }}</span>
+  </div>
+</div>
+
+
+
+<!-- Widget [Tags Cloud Widget]-->
+<div class="widget tags">
+  <header>
+    <h3 class="h6">Tags</h3>
+  </header>
+  <ul class="list-inline">
+    <li class="list-inline-item" *ngFor="let tag of tagList">
+      <a [routerLink]="['/tag', tag.slug]" class="tag">{{ tag.name }}</a>
+    </li>    
   </ul>
 </div>
