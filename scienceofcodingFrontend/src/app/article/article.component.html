@@ -1,87 +1,95 @@
-<section class="module-small">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-4 col-md-3 sidebar">
-        <app-article-side-bar></app-article-side-bar>
-      </div>
+<div class="container">
+  <div class="row">
 
-      <div class="col-sm-8 col-sm-offset-1">
-
-        <div class="post">
-          <div class="post-thumbnail"><img src="{{ article.image }}" alt="Blog Featured Image"/></div>
-          <div class="post-header font-alt">
-            <h1 class="post-title">{{ article.title_english }}</h1>
-            <div class="post-meta">By&nbsp;<a  [routerLink]="['/user/authorprofile', article.author.slug]">{{ article.author.username }}</a>| {{ article.updated_date }} | {{ article.comment_count }} Comments |
-              <a *ngFor="let tag of article.tags" [routerLink]="['/tag', tag.slug]">{{ tag.name }}, </a>
+    <main class="post blog-post col-lg-8">
+      <div class="container">
+        <div class="post-single">
+          <div class="post-thumbnail"><img src="{{ articleService.mainUrl }}{{ article.image }}" alt="{{ article.title_english }}" class="img-fluid"></div>
+          <div class="post-details">
+            <div class="post-meta d-flex justify-content-between">
+              <div class="category"><a [routerLink]="['/category', article.category.slug]">{{ article.category.name }}</a></div>
+            </div>
+            <h1>{{ article.title_english }}<a href="#"><i class="fa fa-bookmark-o"></i></a></h1>
+            <div class="post-footer d-flex align-items-center flex-column flex-sm-row">
+              <a [routerLink]="['/user/authorprofile', article.author.slug]" class="author d-flex align-items-center flex-wrap">
+                <div class="avatar"><img src="{{ articleService.mainUrl }}{{ article.author.avatar }}" alt="{{ article.author.username }}" class="img-fluid"></div>
+                <div class="title"><span>{{ article.author.username }}</span></div>
+              </a>
+              <div class="d-flex align-items-center flex-wrap">
+                <div class="date"><i class="icon-clock"></i> {{ article.updated_date }}</div>
+                <div class="views"><i class="icon-eye"></i> {{ article.view_count }}</div>
+                <div class="comments meta-last"><i class="icon-comment"></i>{{ article.comment_count }}</div>
+              </div>
+            </div>
+            <div class="post-body" [innerHTML]="article.content_english| safe: 'html'">
 
             </div>
-          </div>
-          <div class="post-entry" [innerHTML]="article.content_english| safe: 'html'">
-
-          </div>
-        </div>
-
-        <!-- -------------- Add comment -------------------------------- -->
-        <div class="comment-form">
-          <h4 class="comment-form-title font-alt">Add your comment</h4>
-          <app-comment-create [articleId]="article.id" (commentContent)="addComment($event)"></app-comment-create>
-        </div>
-
-
-        <!-- ------------- Comments --------------------------------------- -->
-        <!-- <app-comment-list [comment_list]="article"></app-comment-list> -->
-        <div class="comments">
-          <h4 class="comment-title font-alt" *ngIf="article.comment_count">There are {{ article.comment_count }} comments</h4>
-
-          <div class="comment clearfix" *ngFor="let comment of article.comments">
-            <div *ngIf="comment.user.avatar; then is_avatar else not_avatar"></div>
-            <ng-template #is_avatar><div class="comment-avatar"><img src="{{ articleService.mainUrl }}{{ comment.user.avatar }}" alt="avatar"/></div></ng-template>
-            <ng-template #not_avatar><div class="comment-avatar"><img src="/assets/images/default_avatar.svg" alt="avatar"/></div></ng-template>
-
-
-            <div class="comment-content clearfix">
-              <div class="comment-author font-alt">{{ comment.user.username }}</div>
-              <div class="comment-body" [innerHTML]="comment.content | safe: 'html'">
-              </div>
-
-              <!-- ----- reply ----- -->
-              <div class="comment-meta font-alt">{{ comment.updated_datetime }}
-                <span *ngIf="loggedUsername"> -
-                  <a [routerLink]="" (click)="onDisplayReply(comment.id)">Reply</a>
-                </span>
-              </div>
-              <div *ngIf="commentIdForDisplayReply == comment.id">
-                <hr>
-                <app-comment-reply
-                    [articleId]="article.id"
-                    [parentCommentId]="comment.id"
-                    (newSubComment)="addReplyComment($event)">
-                  </app-comment-reply>
-              </div>
-
+            <div class="post-tags">
+              <a *ngFor="let tag of article.tags" [routerLink]="['/tag', tag.slug]" class="tag">{{ tag.name }}</a>
             </div>
-            <!-- -------- sub comment ------ -->
-            <div class="comment clearfix" *ngFor="let subComment of comment.sub_comment_list">
+            <!-- -------------------- Comment ------------------------------ -->
+            <div class="post-comments">
+              <header>
+                <h3 class="h6">Post Comments<span class="no-of-comments">({{ article.comment_count }})</span></h3>
+              </header>
+              <div class="comment" *ngFor="let comment of article.comments">
+                <div class="comment-header d-flex justify-content-between">
+                  <div class="user d-flex align-items-center">
 
-              <div *ngIf="subComment.user.avatar; then is_avatar else not_avatar"></div>
-              <ng-template #is_avatar><div class="comment-avatar"><img src="{{ articleService.mainUrl }}{{ subComment.user.avatar }}" alt="avatar"/></div></ng-template>
-              <ng-template #not_avatar><div class="comment-avatar"><img src="/assets/images/default_avatar.svg" alt="avatar"/></div></ng-template>
+                    <div *ngIf="comment.user.avatar; then is_avatar else not_avatar"></div>
+                    <ng-template #is_avatar><div class="image"><img src="{{ articleService.mainUrl }}{{ comment.user.avatar }}" alt="avatar" class="img-fluid rounded-circle"/></div></ng-template>
+                    <ng-template #not_avatar><div class="image"><img src="/assets/images/default_avatar.svg" alt="avatar" class="img-fluid rounded-circle"/></div></ng-template>
 
-              <div class="comment-content clearfix">
-                <div class="comment-author font-alt">{{ subComment.user.username }}</div>
-                <div class="comment-body" [innerHTML]="subComment.content | safe: 'html'">
+                    <div class="title"><strong>{{ comment.user.username }}</strong><span class="date">{{ comment.updated_datetime }}</span></div>
+                  </div>
                 </div>
-                <div class="comment-meta font-alt">{{ subComment.updated_datetime }}
+                <div class="comment-body" [innerHTML]="comment.content | safe: 'html'">
+                </div>
+
+                <!-- ----- reply ----- -->
+                <div class="comment-body">
+                  <span *ngIf="loggedUsername">
+                    <a [routerLink]="" (click)="onDisplayReply(comment.id)">Reply</a>
+                  </span>
+                  <div *ngIf="commentIdForDisplayReply == comment.id">
+                    <hr>
+                    <app-comment-reply
+                        [articleId]="article.id"
+                        [parentCommentId]="comment.id"
+                        (newSubComment)="addReplyComment($event)">
+                      </app-comment-reply>
+                  </div>
+                </div>
+
+                <!-- -------- sub comment ------ -->
+                <div class="comment clearfix col-md-8 offset-md-2" *ngFor="let subComment of comment.sub_comment_list">
+                  <div class="comment-header d-flex justify-content-between">
+                    <div class="user d-flex align-items-center">
+
+                      <div *ngIf="comment.user.avatar; then is_avatar else not_avatar"></div>
+                      <ng-template #is_avatar><div class="image"><img src="{{ articleService.mainUrl }}{{ subComment.user.avatar }}" alt="{{ subComment.user.username }}" class="img-fluid rounded-circle"/></div></ng-template>
+                      <ng-template #not_avatar><div class="image"><img src="/assets/images/default_avatar.svg" alt="avatar" class="img-fluid rounded-circle"/></div></ng-template>
+
+                      <div class="title"><strong>{{ subComment.user.username }}</strong><span class="date">{{ subComment.updated_datetime }}</span></div>
+                    </div>
+                  </div>
+                  <div class="comment-body" [innerHTML]="subComment.content | safe: 'html'">
+                  </div>
                 </div>
               </div>
             </div>
-
+            <!-- -------------- Add comment -------------------------------- -->
+            <div class="add-comment">
+              <h3 class="h6">Add your comment</h3>
+              <app-comment-create [articleId]="article.id" (commentContent)="addComment($event)"></app-comment-create>
+            </div>
           </div>
-
         </div>
-
       </div>
+    </main>
 
-    </div><!-- row -->
-  </div><!-- container -->
-</section>
+    <aside class="col-lg-4">
+      <app-article-side-bar></app-article-side-bar>
+    </aside>
+  </div>
+</div>

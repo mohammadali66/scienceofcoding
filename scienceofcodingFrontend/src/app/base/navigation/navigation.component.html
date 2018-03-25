@@ -40,7 +40,8 @@
 
           <div *ngIf="loggedUsername; then log else not_log"></div>
           <ng-template #log>
-            <li class="nav-item"><a>{{ loggedUsername }} <a class="nav-link " (click)="logoutUser()"><i class="fa fa-chain-broken"></i></a></a></li>
+            <li class="nav-item"><a class="nav-link ">{{ loggedUsername }}</a></li>
+            <li class="nav-item"><a class="nav-link " (click)="logoutUser()">Logout</a></li>
           </ng-template>
 
           <ng-template #not_log>

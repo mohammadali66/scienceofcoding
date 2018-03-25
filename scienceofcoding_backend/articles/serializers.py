@@ -44,8 +44,9 @@ class ArticleSerializer(ModelSerializer):
     updated_datetime = SerializerMethodField()
     comment_count    = SerializerMethodField()
     tags             = SerializerMethodField()
-    comment_list     = SerializerMethodField()    
-    
+    comment_list     = SerializerMethodField()
+    category         = SerializerMethodField()
+
     class Meta:
         model = Article
         fields = (
@@ -62,6 +63,7 @@ class ArticleSerializer(ModelSerializer):
                     'tags',
                     'get_api_url',
                     'comment_list',
+                    'category',
                 )
 
     def get_author(self, obj):
@@ -89,7 +91,9 @@ class ArticleSerializer(ModelSerializer):
     def get_comment_count(self, obj):
         return Comment.objects.filter(article=obj).count()
     
-    
+
+    def get_category(self, obj):
+        return category_serializers.CategoryListMenuSerializer(obj.category).data
     
 
 

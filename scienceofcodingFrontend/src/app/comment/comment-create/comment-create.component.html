@@ -3,14 +3,19 @@
 <!-- ------------------ log ----------------------- -->
 <ng-template #log>
   {{ message }}
-  <form (ngSubmit)="createCommentForm(f)" #f="ngForm">
-
-    <div class="form-group">
-      <textarea class="form-control" id="content" name="content"
-        rows="7" placeholder="Comment" dir="auto"
-        ngModel required content #content="ngModel"></textarea>
+  <form (ngSubmit)="createCommentForm(f)" #f="ngForm" class="commenting-form">
+    <div class="row">
+      <div class="form-group col-md-12">
+        <textarea class="form-control" id="content" name="content"
+          rows="7" placeholder="Comment" dir="auto"
+          ngModel required content #content="ngModel"></textarea>
+      </div>
     </div>
-    <button class="btn btn-round btn-d" type="submit">Post comment</button>
+    <div class="form-group col-md-12">
+      <button class="btn btn-round btn-secondary" type="submit">Post comment</button>
+    </div>
+
+
   </form>
 </ng-template>
 

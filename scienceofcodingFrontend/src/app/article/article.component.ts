@@ -8,6 +8,7 @@ import { Article } from '../models/article.model';
 import { Tag } from '../models/tag.model';
 import { User } from '../models/user.model';
 import { Comment } from '../models/comment.model';
+import { Category } from '../models/category.model';
 
 @Component({
   selector: 'app-article',
@@ -58,13 +59,20 @@ export class ArticleComponent implements OnInit, OnDestroy {
                 this.article.content_english = data.content_english;
                 this.article.slug = data.slug;
                 this.article.image = data.image;
+                this.article.view_count = data.view_count;
 
                 this.article.author = new User();
                 this.article.author.username = data.author.username;
                 this.article.author.slug = data.author.slug;
+                this.article.author.avatar = data.author.avatar;
 
                 this.article.updated_date = data.updated_datetime;
                 this.article.comment_count = data.comment_count;
+
+                //category
+                this.article.category = new Category();
+                this.article.category.name = data.category.name;
+                this.article.category.slug = data.category.slug;
 
                 //...    tags List ..........
                 this.article.tags = new Array<Tag>();

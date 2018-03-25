@@ -4,6 +4,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Tag } from '../models/tag.model';
 import { Article } from '../models/article.model';
 import { User } from '../models/user.model';
+import { Category } from '../models/category.model';
+
 import { TagService } from '../services/tag.service';
 import { ArticleService } from '../services/article.service';
 import { WebsocketService } from '../services/websocket.service';
@@ -65,6 +67,12 @@ export class TagComponent implements OnInit, OnDestroy {
                   article.author = new User();
                   article.author.username = art.author.username;
                   article.author.slug = art.author.slug;
+                  article.author.avatar = art.author.avatar;
+
+                  let category: Category = new Category();
+                  category.name = art.category.name;
+                  category.slug = art.category.slug;
+                  article.category = category;
 
                   article.updated_date = art.updated_datetime;
                   article.url = art.get_api_url;
@@ -76,7 +84,9 @@ export class TagComponent implements OnInit, OnDestroy {
               }
             );
       }
+      window.scrollTo(0, 0);    //scroll to top page
     );
+
   }
 
   //............................................................................
@@ -102,6 +112,12 @@ export class TagComponent implements OnInit, OnDestroy {
             article.author = new User();
             article.author.username = art.author.username;
             article.author.slug = art.author.slug;
+            article.author.avatar = art.author.avatar;
+
+            let category: Category = new Category();
+            category.name = art.category.name;
+            category.slug = art.category.slug;
+            article.category = category;
 
             article.updated_date = art.updated_datetime;
             article.url = art.get_api_url;

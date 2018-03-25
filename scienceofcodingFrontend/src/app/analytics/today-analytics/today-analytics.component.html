@@ -5,9 +5,9 @@
     <div *ngIf="pageList">
       <div class="col-md-12" *ngFor="let page of pageList">
       <!-- <ul class="list-group"> -->
-        <div class="panel panel-default" style="font-size:0.8em;">
-          <div class="panel-heading">{{ page.name }} <span class="badge">{{ page.clientUserOpenedPage_list.length }}</span></div>
-          <div class="panel-body">
+        <div class="card" style="font-size:0.8em;">
+          <div class="card-header">{{ page.name }} <span class="badge badge-info">{{ page.clientUserOpenedPage_list.length }}</span></div>
+          <div class="card-body">
             <table class="table table-striped">
               <thead>
                 <tr>

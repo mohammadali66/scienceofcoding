@@ -34,12 +34,20 @@ class ArticleListOfOneTagAPIView(ListAPIView):
 
 
 # ...............................................................................................................
-class ArticleAPIView(RetrieveAPIView):
+class ArticleAPIView(APIView):
     serializer_class = serializers.ArticleSerializer
     permission_classes = (permissions.AllowAny,)
-    queryset = Article.objects.all()
-    lookup_field = 'slug'
-    
+
+    def get(self, request, slug):
+        try:
+            article = Article.objects.get(slug=slug)
+            article.view_count += 1
+            article.save()
+            return Response(self.serializer_class(article).data, status=status.HTTP_200_OK)
+        except:
+            article = None
+            return Response({'message': 'not found'}, status=status.HTTP_404_NOT_FOUND)
+
 # ...............................................................................................................
 class LastArticleAPIView(APIView):
 
