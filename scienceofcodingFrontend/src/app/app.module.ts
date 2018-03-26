@@ -43,6 +43,7 @@ import { WeekchartAnalyticsComponent } from './analytics/weekchart-analytics/wee
 import { TodayAnalyticsComponent } from './analytics/today-analytics/today-analytics.component';
 import { CategoryLastArticleComponent } from './home/category-last-article/category-last-article.component';
 import { MostViewArticleComponent } from './home/most-view-article/most-view-article.component';
+import { SearchArticleComponent } from './search-article/search-article.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { MostViewArticleComponent } from './home/most-view-article/most-view-art
     WeekchartAnalyticsComponent,
     TodayAnalyticsComponent,
     CategoryLastArticleComponent,
-    MostViewArticleComponent
+    MostViewArticleComponent,
+    SearchArticleComponent
   ],
   imports: [
     BrowserModule,

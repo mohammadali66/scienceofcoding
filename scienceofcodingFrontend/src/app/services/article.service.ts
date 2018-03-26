@@ -98,14 +98,28 @@ export class ArticleService{
 //...........................................................................
   //get most view article
   getMostViewArticle(count: string){
-  let url = this.mainUrl + '/api/article/mostviewarticle/' + count + '/?format=json';
+    let url = this.mainUrl + '/api/article/mostviewarticle/' + count + '/?format=json';
 
-  return this.http.get(url)
-    .map(
-      (response: Response) => {
-        const data = response.json();
-        return data;
-      }
-    );
+    return this.http.get(url)
+      .map(
+        (response: Response) => {
+          const data = response.json();
+          return data;
+        }
+      );
+  }
+
+  //...........................................................................
+  //Search Article
+  getSearchArticle(query: string){
+    let url = this.mainUrl + '/api/article/search/?q=' + query + '&format=json';
+
+    return this.http.get(url)
+      .map(
+        (response: Response) => {
+          const data = response.json();
+          return data;
+        }
+      );
   }
 }

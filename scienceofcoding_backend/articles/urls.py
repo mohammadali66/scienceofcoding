@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^detail/(?P<slug>[\w-]+)/$', views.ArticleAPIView.as_view(), name='detail'),
     url(r'^lastarticle/(?P<count>[\d]+)/$', views.LastArticleAPIView.as_view(), name='lastarticle'),
     url(r'^mostviewarticle/(?P<count>[\d]+)/$', views.MostViewArticleAPIView.as_view(), name='mostviewarticle'),
+    url(r'^search/$', views.SearchArticleAPIView.as_view(), name='search'),
     
 ]
 

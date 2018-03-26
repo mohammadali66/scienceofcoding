@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { ArticleService } from '../../services/article.service';
 import { CategoryService } from '../../services/category.service';
@@ -22,7 +24,8 @@ export class ArticleSideBarComponent implements OnInit {
 
   constructor(private articleService: ArticleService,
               private categoryService: CategoryService,
-              private tagService: TagService) { }
+              private tagService: TagService,
+              private router: Router) { }
 
   ngOnInit() {
     this.articleService.getMostViewArticle('3').subscribe(
@@ -68,4 +71,8 @@ export class ArticleSideBarComponent implements OnInit {
     );
   }
 
+  //----------------------------------------------------------------------------
+  searchForm(form: NgForm){
+    this.router.navigate(['/search'], {queryParams: {q: form.value.searchstring }});
+  }
 }

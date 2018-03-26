@@ -3,10 +3,11 @@
   <header>
     <h3 class="h6">Search the article blog</h3>
   </header>
-  <form action="#" class="search-form">
+  <form class="search-form" (ngSubmit)="searchForm(f)" #f="ngForm">
     <div class="form-group">
-      <input type="search" placeholder="What are you looking for?">
-      <button type="submit" class="submit"><i class="icon-search"></i></button>
+      <input type="search" name="searchstring" placeholder="What are you looking for?"
+        ngModel required searchstring #searchstring="ngModel" />
+      <button type="submit" class="submit" [disabled]="!f.valid"><i class="icon-search"></i></button>
     </div>
   </form>
 </div>
@@ -52,6 +53,6 @@
   <ul class="list-inline">
     <li class="list-inline-item" *ngFor="let tag of tagList">
       <a [routerLink]="['/tag', tag.slug]" class="tag">{{ tag.name }}</a>
-    </li>    
+    </li>
   </ul>
 </div>

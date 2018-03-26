@@ -1,4 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { Category } from '../models/category.model';
 import { Article } from '../models/article.model';
@@ -19,34 +21,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(private websocketService: WebsocketService,
               private categoryService: CategoryService,
-              private articleService: ArticleService) { }
+              private articleService: ArticleService,
+              private router: Router) { }
 
   ngOnInit() {
     //websocket  .............................................
     this.websocketService.clientUserSocket("homeRoom");
-    //........................................................
-
-    // this.categoryService.getCategoryLastArticle().subscribe(
-    //   (data: any) => {
-    //     console.log(data);
-    //     for(let cat of data){
-    //       let category: Category = new Category();
-    //       category.name = cat.name;
-    //       category.slug = cat.slug;
-    //
-    //       let articleList: Array<Article> = new Array<Article>();
-    //       for(let art of cat.articles){
-    //         let article: Article = new Article();
-    //         article.title_english = art.title_english;
-    //         article.slug = art.slug;
-    //         article.image = art.image;
-    //         articleList.push(article);
-    //       }
-    //       category.category_articles = articleList;
-    //       this.categoryList.push(category);
-    //     }
-    //   }
-    // );
 
     //last article count 3 ...................................
     this.articleService.getLastArticle('3').subscribe(
@@ -78,6 +58,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     window.scrollTo(0, 0);    //scroll to top page
   }
 
+  //----------------------------------------------------------------------------
+  searchForm(form: NgForm){
+    this.router.navigate(['/search'], {queryParams: {q: form.value.searchstring }});
+  }
+
+  //----------------------------------------------------------------------------
   ngOnDestroy(){
     console.log("home destroy");
     this.websocketService.closeWebsocket();

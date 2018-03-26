@@ -83,8 +83,8 @@ export class TagComponent implements OnInit, OnDestroy {
                 this.next = data.next;
               }
             );
+          window.scrollTo(0, 0);    //scroll to top page
       }
-      window.scrollTo(0, 0);    //scroll to top page
     );
 
   }
