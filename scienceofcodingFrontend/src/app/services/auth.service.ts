@@ -4,12 +4,25 @@ import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 import 'rxjs/add/operator/toPromise';
 
+import { User } from '../models/user.model';
 
 @Injectable()
 export class AuthService{
+
   private mainUrl = 'http://127.0.0.1:8000';
-  public isLogged = false;
-  constructor(private http: Http){}
+  loggedUser: User;
+
+  constructor(private http: Http){
+    //if user logged in set loggedUser property
+    if(localStorage.getItem('username')){
+      this.loggedUser = new User();
+      this.loggedUser.username = localStorage.getItem('username');
+      this.loggedUser.token = localStorage.getItem('token');
+      this.loggedUser.avatar = localStorage.getItem('avatar');
+    }else{
+      this.loggedUser = null;
+    }
+  }
 
   //............................................................................
   loginUser(aUser: any){

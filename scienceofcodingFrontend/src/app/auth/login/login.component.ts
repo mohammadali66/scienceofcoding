@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 
 import { AuthService } from '../../services/auth.service';
 import { WebsocketService } from '../../services/websocket.service';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -43,15 +44,19 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authService.loginUser(aUser)
       .subscribe(
         (data: any) => {
-          localStorage.setItem('username', data.username);
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('avatar', data.avatar);
-          this.authService.isLogged = true;
           this.errorMessage = '';
-          //this.router.navigate([this.router.url]);
-          window.location.reload();
-          //this.location.back();
+          let user: User = new User();
+          user.username = data.username;
+          user.token = data.token;
+          user.avatar = data.avatar;
 
+          this.authService.loggedUser = user;
+          
+          localStorage.setItem('username', user.username);
+          localStorage.setItem('token', user.token);
+          localStorage.setItem('avatar', user.avatar);
+
+          this.router.navigate(['/']);
         },
         (error) => {
           this.errorMessage = error;

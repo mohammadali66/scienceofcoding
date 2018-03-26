@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { User } from '../../models/user.model';
 import { AuthService } from '../../services/auth.service';
 import { WebsocketService } from '../../services/websocket.service';
 
@@ -39,13 +40,19 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.authService.registerUser(aUser)
       .subscribe(
         (data: any) => {
-          localStorage.setItem('username', data.username);
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('avatar', data.avatar);
-          this.authService.isLogged = true;
           this.errorMessage = '';
+          let user: User = new User();
+          user.username = data.username;
+          user.token = data.token;
+          user.avatar = data.avatar;
 
-          window.location.reload();
+          this.authService.loggedUser = user;
+
+          localStorage.setItem('username', user.username);
+          localStorage.setItem('token', user.token);
+          localStorage.setItem('avatar', user.avatar);
+
+          this.router.navigate(['/']);
         },
         (error) => {
           this.errorMessage = error;

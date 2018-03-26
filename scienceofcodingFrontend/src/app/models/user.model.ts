@@ -5,6 +5,7 @@ export class User{
   public avatar: string;
   public description_english: string;
   public slug: string
+  public token: string;
 
   constructor(){}
 }

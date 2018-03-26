@@ -30,7 +30,7 @@
       <div id="navbarcollapse" class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item"><a [routerLink]= "['/']" class="nav-link ">Home</a></li>
-          <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-toggle="dropdown">Categories</a>
+          <li class="nav-item dropdown"><a [routerLink]="" class="nav-link dropdown-toggle" data-toggle="dropdown">Categories</a>
             <div class="dropdown-menu">
 
                 <a *ngFor="let category of categoryList" class="dropdown-item" [routerLink]="['/category', category.slug]">{{ category.name }}</a>
@@ -38,12 +38,14 @@
             </div>
           </li>
 
-          <div *ngIf="loggedUsername; then log else not_log"></div>
+          <div *ngIf="authService.loggedUser; then log else not_log"></div>
+          <!-- --------- logged in ---------------------------------------- -->
           <ng-template #log>
-            <li class="nav-item"><a class="nav-link ">{{ loggedUsername }}</a></li>
-            <li class="nav-item"><a class="nav-link " (click)="logoutUser()">Logout</a></li>
+            <li class="nav-item"><a [routerLink]="" class="nav-link ">{{ authService.loggedUser.username }}</a></li>
+            <li class="nav-item"><a [routerLink]="" class="nav-link " (click)="logoutUser()">Logout</a></li>
           </ng-template>
 
+          <!-- --------- not logged --------------------------------------- -->
           <ng-template #not_log>
             <li class="nav-item"><a class="nav-link " [routerLink]= "['/login']">Login</a></li>
             <li class="nav-item"><a class="nav-link " [routerLink]= "['/register']">Register</a></li>
