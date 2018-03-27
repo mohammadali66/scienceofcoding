@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-4 col-md-3 sidebar">
-        <app-article-side-bar></app-article-side-bar>
+
       </div>
 
       <div class="col-sm-8 col-sm-offset-1">
@@ -15,6 +15,12 @@
         <div class="alert alert-danger" role="alert" *ngIf="!username.valid && username.touched">username is empty</div>
         <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
           <strong>Alert!</strong> {{ errorMessage }}
+        </div>
+        <!-- ------ success message ------ -->
+        <div class="alert alert-success" role="alert" *ngIf="successMessage">
+          <p>You have been registered successfully, but you are not active.</p>
+          <p>After checking your information, we will active your account.</p>
+          <p>Admin Email: scienceofcoding.ir@gmail.com</p>
         </div>
 
         <form class="form" (ngSubmit)="registerUserForm(f)" #f="ngForm">

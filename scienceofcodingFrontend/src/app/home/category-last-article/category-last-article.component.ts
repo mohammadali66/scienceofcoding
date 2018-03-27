@@ -20,7 +20,7 @@ export class CategoryLastArticleComponent implements OnInit {
   ngOnInit() {
     this.categoryService.getCategoryLastArticle().subscribe(
       (data: any) => {
-        console.log(data);
+
         for(let cat of data){
           let category: Category = new Category();
           category.name = cat.name;
@@ -49,7 +49,7 @@ export class CategoryLastArticleComponent implements OnInit {
   }
   //............................................................................
   getArticles(index:any){
-    console.log(index);
+    
     if(index >= 0 ){
       this.articleList_forDisplay = null;
       this.articleList_forDisplay = this.categoryList[index].category_articles;

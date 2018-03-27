@@ -68,15 +68,16 @@ export class ArticleService{
       url = pageUrl;
     }
 
-    // let headers = new Headers();
-    // headers.append('Content-Type', 'application/json');
-    // headers.append('Access-Control-Allow-Origin', '*');
-
-    // return this.http.get(url, headers)
     return this.http.get(url)
       .map(
         (response: Response) => {
           const data = response.json();
+          return data;
+        }
+      )
+      .catch(
+        (error: Response) => {
+          const data = error.json();          
           return data;
         }
       );

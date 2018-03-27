@@ -4,10 +4,9 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
 
-//import {DpDatePickerModule} from 'ng2-date-picker';
-//import {DatePickerModule} from 'ng2-datepicker-bootstrap';
-//import { MyDatePickerModule } from 'mydatepicker';
-// import { NgDatepickerModule } from 'ng2-datepicker';
+//import { BotDetectCaptchaModule } from 'angular-captcha';
+// import { RecaptchaModule } from 'ng-recaptcha';
+// import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 
 import { WebsocketService } from './services/websocket.service';
 import { CategoryService } from './services/category.service';
@@ -44,6 +43,7 @@ import { TodayAnalyticsComponent } from './analytics/today-analytics/today-analy
 import { CategoryLastArticleComponent } from './home/category-last-article/category-last-article.component';
 import { MostViewArticleComponent } from './home/most-view-article/most-view-article.component';
 import { SearchArticleComponent } from './search-article/search-article.component';
+import { Error404Component } from './error404/error404.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +71,8 @@ import { SearchArticleComponent } from './search-article/search-article.componen
     TodayAnalyticsComponent,
     CategoryLastArticleComponent,
     MostViewArticleComponent,
-    SearchArticleComponent
+    SearchArticleComponent,
+    Error404Component
   ],
   imports: [
     BrowserModule,
@@ -79,6 +80,8 @@ import { SearchArticleComponent } from './search-article/search-article.componen
     AppRoutingModule,
     FormsModule,
     ChartsModule
+    //RecaptchaModule.forRoot(),
+    //RecaptchaFormsModule
   ],
   providers: [
     UserService,

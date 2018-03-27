@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { Category } from '../models/category.model';
 import { Article } from '../models/article.model';
@@ -21,7 +21,8 @@ export class CategoryComponent implements OnInit, OnDestroy {
   constructor(private categoryService: CategoryService,
               private articleService: ArticleService,
               private websocketService: WebsocketService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
     //get category slug from url ...............................
@@ -46,6 +47,10 @@ export class CategoryComponent implements OnInit, OnDestroy {
               this.category.name = data.name;
               this.category.description = data.description;
               this.category.image = data.image;
+            },
+            (error) => {
+              //redirect to error 404 page
+              this.router.navigate(['/error404']);
             }
           );
 
@@ -124,12 +129,14 @@ export class CategoryComponent implements OnInit, OnDestroy {
           this.previous = data.previous;
           this.next = data.next;
         },
-        (error) => console.log(error)
+        (error) => {}
       );
   }
 
   //............................................................................
   ngOnDestroy(){
-    this.websocketService.closeWebsocket();
+    if(this.websocketService.isCalled){
+      this.websocketService.closeWebsocket();
+    }
   }
 }

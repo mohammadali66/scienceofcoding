@@ -64,8 +64,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   //----------------------------------------------------------------------------
-  ngOnDestroy(){
-    console.log("home destroy");
+  ngOnDestroy(){    
     this.websocketService.closeWebsocket();
   }
 

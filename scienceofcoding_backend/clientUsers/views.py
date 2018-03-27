@@ -13,6 +13,8 @@ from . import serializers
 
 class PageAPIView(APIView):
 
+    permission_classes = (permissions.IsAuthenticated, permissions.IsAdminUser,)
+
     #if instead of real date, use notation '1000-01-01', it set today date.
     def get(self, request, date, *args, **kwargs):
         if date == '1000-01-01':     #a notation for today
@@ -34,7 +36,9 @@ class PageAPIView(APIView):
         
 # ..............................................................................................................
 class PageTwoDateAPIView(APIView):
-    
+
+    permission_classes = (permissions.IsAuthenticated, permissions.IsAdminUser,)
+
     def get(self, request, fromdate, todate, *args, **kwargs):
         try:
             pageList = Page.objects.filter(clientuseropenedpage__open_datetime__date__range=(fromdate, todate)).distinct()
@@ -50,6 +54,8 @@ class PageTwoDateAPIView(APIView):
 
 # ..............................................................................................................
 class CountViewFromDayUntilNowAPIView(APIView):
+
+    permission_classes = (permissions.IsAuthenticated, permissions.IsAdminUser,)
 
     def get(selfself, request, day, *args, **kwargs):
 

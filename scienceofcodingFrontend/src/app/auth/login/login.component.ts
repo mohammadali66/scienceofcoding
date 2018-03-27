@@ -49,9 +49,10 @@ export class LoginComponent implements OnInit, OnDestroy {
           user.username = data.username;
           user.token = data.token;
           user.avatar = data.avatar;
+          user.is_superuser = data.is_superuser;
 
           this.authService.loggedUser = user;
-          
+
           localStorage.setItem('username', user.username);
           localStorage.setItem('token', user.token);
           localStorage.setItem('avatar', user.avatar);

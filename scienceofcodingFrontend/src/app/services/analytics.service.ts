@@ -7,7 +7,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class AnalyticsService{
 
-  private mainUrl = 'http://127.0.0.1:8000';  
+  private mainUrl = 'http://127.0.0.1:8000';
 
   constructor(private http: Http){}
 
@@ -23,7 +23,7 @@ export class AnalyticsService{
       .map(
         (response: Response) => {
           const data = response.json();
-          //console.log(JSON.parse(response));
+
           return data;
         }
       )
@@ -46,7 +46,7 @@ export class AnalyticsService{
       .map(
         (response: Response) => {
           const data = response.json();
-          //console.log(JSON.parse(response));
+
           return data;
         }
       )
@@ -67,8 +67,7 @@ export class AnalyticsService{
     return this.http.get(url)
       .map(
         (response: Response) => {
-          const data = response.json();
-          console.log(data);
+          const data = response.json();          
           return data;
         }
       )

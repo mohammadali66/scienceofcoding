@@ -67,8 +67,7 @@ export class WebsocketService{
       _self.socket.send(JSON.stringify(clientMessage));
     };
 
-    _self.socket.onmessage = (event) => {
-      //console.log("data from socket:" + event.data);
+    _self.socket.onmessage = (event) => {      
       _self.data = JSON.parse(event.data);
     };
   }

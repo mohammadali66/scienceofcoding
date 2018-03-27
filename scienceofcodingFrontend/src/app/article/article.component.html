@@ -7,7 +7,7 @@
           <div class="post-thumbnail"><img src="{{ articleService.mainUrl }}{{ article.image }}" alt="{{ article.title_english }}" class="img-fluid"></div>
           <div class="post-details">
             <div class="post-meta d-flex justify-content-between">
-              <div class="category"><a [routerLink]="['/category', article.category.slug]">{{ article.category.name }}</a></div>
+              <div class="category"><a [routerLink]="['/category', categoryOfArticle.slug]">{{ categoryOfArticle.name }}</a></div>
             </div>
             <h1>{{ article.title_english }}<a href="#"><i class="fa fa-bookmark-o"></i></a></h1>
             <div class="post-footer d-flex align-items-center flex-column flex-sm-row">

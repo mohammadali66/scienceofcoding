@@ -14,6 +14,7 @@ import { WebsocketService } from '../../services/websocket.service';
 export class RegisterComponent implements OnInit, OnDestroy {
 
   errorMessage: string;
+  successMessage = false;
 
   constructor(private authService: AuthService,
               private websocketService: WebsocketService,
@@ -45,14 +46,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
           user.username = data.username;
           user.token = data.token;
           user.avatar = data.avatar;
+          
+          this.successMessage = true;
 
-          this.authService.loggedUser = user;
-
-          localStorage.setItem('username', user.username);
-          localStorage.setItem('token', user.token);
-          localStorage.setItem('avatar', user.avatar);
-
-          this.router.navigate(['/']);
         },
         (error) => {
           this.errorMessage = error;

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { AnalyticsService } from '../services/analytics.service';
 import { Page } from '../models/page.model';
 import { ClientUserOpenedPage } from '../models/clientUserOpenedPage.model';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-analytics',
@@ -27,7 +29,9 @@ export class AnalyticsComponent implements OnInit {
   toyearNg = "2018";
   pageList: Array<Page>;
 
-  constructor(private analyticsService: AnalyticsService) {
+  constructor(private analyticsService: AnalyticsService,
+              private authService: AuthService,
+              private router: Router) {
     // day :
     this.dayName = [
       {name: '1', value:'01'},
@@ -89,6 +93,10 @@ export class AnalyticsComponent implements OnInit {
   }
 
   ngOnInit() {
+    //if user is not superuser redirect to error404 page
+    if(this.authService.loggedUser == null || !this.authService.loggedUser.is_superuser){
+      this.router.navigate(['/error404']);
+    }
     window.scrollTo(0, 0);    //scroll to top page
   }
 

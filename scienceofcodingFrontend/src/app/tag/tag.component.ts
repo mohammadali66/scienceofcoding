@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { Tag } from '../models/tag.model';
 import { Article } from '../models/article.model';
@@ -24,7 +24,8 @@ export class TagComponent implements OnInit, OnDestroy {
   constructor(private tagService: TagService,
               private articleService: ArticleService,
               private route: ActivatedRoute,
-              private websocketService: WebsocketService
+              private websocketService: WebsocketService,
+              private router: Router
               ) { }
 
   ngOnInit() {
@@ -48,6 +49,10 @@ export class TagComponent implements OnInit, OnDestroy {
               this.websocketService.clientUserSocket(page_name);
               //......................................................
 
+            },
+            (error) => {
+              //redirect to error 404 page
+              this.router.navigate(['/error404']);
             }
           );
 
@@ -127,11 +132,13 @@ export class TagComponent implements OnInit, OnDestroy {
           this.previous = data.previous;
           this.next = data.next;
         },
-        (error) => console.log(error)
+        (error) => {}
       );
   }
   //............................................................................
   ngOnDestroy(){
-    this.websocketService.closeWebsocket();
+    if(this.websocketService.isCalled){
+      this.websocketService.closeWebsocket();
+    }
   }
 }

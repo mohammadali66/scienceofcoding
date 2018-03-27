@@ -6,6 +6,7 @@ export class User{
   public description_english: string;
   public slug: string
   public token: string;
+  public is_superuser: boolean;
 
   constructor(){}
 }

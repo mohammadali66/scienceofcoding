@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 //import { SafePipe } from '../safe.pipe';
 import { ArticleService } from '../services/article.service';
@@ -19,12 +19,14 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
   loggedUsername: string = null;
   article: Article = new Article();
+  categoryOfArticle: Category = new Category();
   newCommentContent: string = '';
   commentIdForDisplayReply = '0';
 
   constructor(private articleService: ArticleService,
               private websocketService: WebsocketService,
-              private route: ActivatedRoute
+              private route: ActivatedRoute,
+              private router: Router
               ) { }
 
   ngOnInit() {
@@ -53,72 +55,80 @@ export class ArticleComponent implements OnInit, OnDestroy {
               }
               this.websocketService.clientUserSocket(page_name);
               //......................................................
-                this.article.id = data.id;
-                this.article.title_english = data.title_english;
-                this.article.abstract_english = data.abstract_english;
-                this.article.content_english = data.content_english;
-                this.article.slug = data.slug;
-                this.article.image = data.image;
-                this.article.view_count = data.view_count;
+              this.article.id = data.id;
+              this.article.title_english = data.title_english;
+              this.article.abstract_english = data.abstract_english;
+              this.article.content_english = data.content_english;
+              this.article.slug = data.slug;
+              this.article.image = data.image;
+              this.article.view_count = data.view_count;
 
-                this.article.author = new User();
-                this.article.author.username = data.author.username;
-                this.article.author.slug = data.author.slug;
-                this.article.author.avatar = data.author.avatar;
+              this.article.author = new User();
+              this.article.author.username = data.author.username;
+              this.article.author.slug = data.author.slug;
+              this.article.author.avatar = data.author.avatar;
 
-                this.article.updated_date = data.updated_datetime;
-                this.article.comment_count = data.comment_count;
+              this.article.updated_date = data.updated_datetime;
+              this.article.comment_count = data.comment_count;
 
-                //category
-                this.article.category = new Category();
-                this.article.category.name = data.category.name;
-                this.article.category.slug = data.category.slug;
+              //category
+              // this.article.category = new Category();
+              // this.article.category.name = data.category.name;
+              // this.article.category.slug = data.category.slug;
+              //let category: Category = new Category();
+              this.categoryOfArticle.name = data.category.name;
+              this.categoryOfArticle.slug = data.category.slug;
+              //this.article.category = category;
 
-                //...    tags List ..........
-                this.article.tags = new Array<Tag>();
-                for(let t of data.tags){
-                  let tag: Tag = new Tag();
-                  tag.name = t.name;
-                  tag.slug = t.slug;
-                  this.article.tags.push(tag);
+              //...    tags List ..........
+              this.article.tags = new Array<Tag>();
+              for(let t of data.tags){
+                let tag: Tag = new Tag();
+                tag.name = t.name;
+                tag.slug = t.slug;
+                this.article.tags.push(tag);
+              }
+
+              //... comments List ..........
+              this.article.comments = new Array<Comment>();
+              for(let com of data.comment_list){
+                let comment: Comment = new Comment();
+                comment.id = com.id;
+
+                let userComment: User = new User();
+                userComment.username = com.user.username;
+                userComment.slug = com.user.slug;
+                userComment.avatar = com.user.avatar;
+                comment.user = userComment;
+
+                comment.article = com.article;
+                comment.content = com.content;
+                comment.updated_datetime = com.updated_datetime
+
+                //... sub comments
+                comment.sub_comment_list = new Array<Comment>();
+                for(let subCom of com.sub_comment_list){
+                  let subComment: Comment = new Comment();
+                  subComment.id = subCom.id;
+
+                  let userComment2: User = new User();
+                  userComment2.username = subCom.user.username;
+                  userComment2.slug = subCom.user.slug;
+                  userComment2.avatar = subCom.user.avatar;
+                  subComment.user = userComment2;
+
+                  subComment.article = subCom.article;
+                  subComment.content = subCom.content;
+                  subComment.updated_datetime = subCom.updated_datetime
+
+                  comment.sub_comment_list.push(subComment);
                 }
-
-                //... comments List ..........
-                this.article.comments = new Array<Comment>();
-                for(let com of data.comment_list){
-                  let comment: Comment = new Comment();
-                  comment.id = com.id;
-
-                  let userComment: User = new User();
-                  userComment.username = com.user.username;
-                  userComment.slug = com.user.slug;
-                  userComment.avatar = com.user.avatar;
-                  comment.user = userComment;
-
-                  comment.article = com.article;
-                  comment.content = com.content;
-                  comment.updated_datetime = com.updated_datetime
-
-                  //... sub comments
-                  comment.sub_comment_list = new Array<Comment>();
-                  for(let subCom of com.sub_comment_list){
-                    let subComment: Comment = new Comment();
-                    subComment.id = subCom.id;
-
-                    let userComment2: User = new User();
-                    userComment2.username = subCom.user.username;
-                    userComment2.slug = subCom.user.slug;
-                    userComment2.avatar = subCom.user.avatar;
-                    subComment.user = userComment2;
-
-                    subComment.article = subCom.article;
-                    subComment.content = subCom.content;
-                    subComment.updated_datetime = subCom.updated_datetime
-
-                    comment.sub_comment_list.push(subComment);
-                  }
-                  this.article.comments.push(comment);
-                }
+                this.article.comments.push(comment);
+              }
+            },
+            (error) => {
+              //redirect to error 404 page
+              this.router.navigate(['/error404']);
             }
           );
     });
@@ -153,6 +163,8 @@ export class ArticleComponent implements OnInit, OnDestroy {
   }
   //............................................................................
   ngOnDestroy(){
-    this.websocketService.closeWebsocket();
+    if(this.websocketService.isCalled){
+      this.websocketService.closeWebsocket();
+    }
   }
 }
