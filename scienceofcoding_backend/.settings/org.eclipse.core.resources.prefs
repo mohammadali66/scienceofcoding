@@ -10,6 +10,7 @@ encoding//clientUsers/admin.py=utf-8
 encoding//clientUsers/models.py=utf-8
 encoding//clientUsers/views.py=utf-8
 encoding//comments/admin.py=utf-8
+encoding//comments/apps.py=utf-8
 encoding//comments/models.py=utf-8
 encoding//comments/views.py=utf-8
 encoding//tags/admin.py=utf-8

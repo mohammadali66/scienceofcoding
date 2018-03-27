@@ -5,13 +5,15 @@ from comments.models import Comment
 from tags import serializers as tags_serializers
 from users import serializers as users_serializers
 from comments import serializers as comments_serializers
+from categories import serializers as category_serializers
 
 
 class ArticleBriefSerializer(ModelSerializer):
     
     author = SerializerMethodField()
     updated_datetime = SerializerMethodField()
-    
+    category = SerializerMethodField()
+
     class Meta:
         model = Article
         fields = (
@@ -21,14 +23,19 @@ class ArticleBriefSerializer(ModelSerializer):
                     'image',
                     'updated_datetime',
                     'author',
+                    'category',
                     'get_api_url',
+                    'view_count',
                 )
 
     def get_author(self, obj):
         return users_serializers.UserBriefSerializer(obj.author).data
     
     def get_updated_datetime(self, obj):
-        return str(obj.updated_datetime.date())    
+        return str(obj.updated_datetime.date())
+
+    def get_category(self, obj):
+        return category_serializers.CategoryListMenuSerializer(obj.category).data
 
 # ................................................................................................................
 class ArticleSerializer(ModelSerializer):
@@ -37,8 +44,9 @@ class ArticleSerializer(ModelSerializer):
     updated_datetime = SerializerMethodField()
     comment_count    = SerializerMethodField()
     tags             = SerializerMethodField()
-    comment_list     = SerializerMethodField()    
-    
+    comment_list     = SerializerMethodField()
+    category         = SerializerMethodField()
+
     class Meta:
         model = Article
         fields = (
@@ -55,6 +63,7 @@ class ArticleSerializer(ModelSerializer):
                     'tags',
                     'get_api_url',
                     'comment_list',
+                    'category',
                 )
 
     def get_author(self, obj):
@@ -82,7 +91,9 @@ class ArticleSerializer(ModelSerializer):
     def get_comment_count(self, obj):
         return Comment.objects.filter(article=obj).count()
     
-    
+
+    def get_category(self, obj):
+        return category_serializers.CategoryListMenuSerializer(obj.category).data
     
 
 

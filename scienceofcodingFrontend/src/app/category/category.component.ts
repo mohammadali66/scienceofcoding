@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { Category } from '../models/category.model';
 import { Article } from '../models/article.model';
@@ -21,7 +21,8 @@ export class CategoryComponent implements OnInit, OnDestroy {
   constructor(private categoryService: CategoryService,
               private articleService: ArticleService,
               private websocketService: WebsocketService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
     //get category slug from url ...............................
@@ -46,6 +47,10 @@ export class CategoryComponent implements OnInit, OnDestroy {
               this.category.name = data.name;
               this.category.description = data.description;
               this.category.image = data.image;
+            },
+            (error) => {
+              //redirect to error 404 page
+              this.router.navigate(['/error404']);
             }
           );
 
@@ -65,6 +70,12 @@ export class CategoryComponent implements OnInit, OnDestroy {
                   article.author = new User();
                   article.author.username = art.author.username;
                   article.author.slug = art.author.slug;
+                  article.author.avatar = art.author.avatar;
+
+                  let category: Category = new Category();
+                  category.name = art.category.name;
+                  category.slug = art.category.slug;
+                  article.category = category;
 
                   article.updated_date = art.updated_datetime;
                   article.url = art.get_api_url;
@@ -77,7 +88,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
               }
             );
       });
-
+      window.scrollTo(0, 0);    //scroll to top page
 
   }
   //............................................................................
@@ -103,6 +114,12 @@ export class CategoryComponent implements OnInit, OnDestroy {
             article.author = new User();
             article.author.username = art.author.username;
             article.author.slug = art.author.slug;
+            article.author.avatar = art.author.avatar;
+
+            let category: Category = new Category();
+            category.name = art.category.name;
+            category.slug = art.category.slug;
+            article.category = category;
 
             article.updated_date = art.updated_datetime;
             article.url = art.get_api_url;
@@ -112,12 +129,14 @@ export class CategoryComponent implements OnInit, OnDestroy {
           this.previous = data.previous;
           this.next = data.next;
         },
-        (error) => console.log(error)
+        (error) => {}
       );
   }
 
   //............................................................................
   ngOnDestroy(){
-    this.websocketService.closeWebsocket();
+    if(this.websocketService.isCalled){
+      this.websocketService.closeWebsocket();
+    }
   }
 }

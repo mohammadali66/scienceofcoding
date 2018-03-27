@@ -5,6 +5,8 @@ export class User{
   public avatar: string;
   public description_english: string;
   public slug: string
+  public token: string;
+  public is_superuser: boolean;
 
   constructor(){}
 }

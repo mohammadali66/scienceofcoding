@@ -1,3 +1,7 @@
+from django.utils import timezone
+import datetime
+import pytz
+
 from .models import Page, ClientUser, ClientUserOpenedPage
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
@@ -5,16 +9,20 @@ from rest_framework.serializers import ModelSerializer, SerializerMethodField
 class ClientUserOpenedPageSerializer(ModelSerializer):
     
     clientUser = SerializerMethodField()
-    open_date = SerializerMethodField()
-    open_time = SerializerMethodField()
-    end_date = SerializerMethodField()
-    end_time = SerializerMethodField()
-    
+    country    = SerializerMethodField()
+    city       = SerializerMethodField()
+    open_date  = SerializerMethodField()
+    open_time  = SerializerMethodField()
+    end_date   = SerializerMethodField()
+    end_time   = SerializerMethodField()
+
     class Meta:
         model = ClientUserOpenedPage
         fields = (
                     'clientUser',
                     'page',
+                    'country',
+                    'city',
                     'open_date',
                     'open_time',
                     'end_date',
@@ -25,7 +33,15 @@ class ClientUserOpenedPageSerializer(ModelSerializer):
     def get_clientUser(self, obj):
         return obj.clientUser.ip_address
     
-    
+
+    def get_country(self, obj):
+        return obj.clientUser.country
+
+
+    def get_city(self, obj):
+        return obj.clientUser.city
+
+
     def get_open_date(self, obj):
         if obj.open_datetime:
             date_str = '%s/%s/%s' % (obj.open_datetime.year, obj.open_datetime.month, obj.open_datetime.day)
@@ -35,7 +51,8 @@ class ClientUserOpenedPageSerializer(ModelSerializer):
     
     def get_open_time(self, obj):
         if obj.open_datetime:
-            time_str = '%s:%s' % (obj.open_datetime.hour, obj.open_datetime.minute)
+            #for local time, we use timezone.localtime()
+            time_str = '%s:%s' % (timezone.localtime(obj.open_datetime).hour, timezone.localtime(obj.open_datetime).minute)
             return time_str
         return ''
         
@@ -49,7 +66,8 @@ class ClientUserOpenedPageSerializer(ModelSerializer):
     
     def get_end_time(self, obj):
         if obj.end_datetime:
-            time_str = '%s:%s' % (obj.end_datetime.hour, obj.end_datetime.minute)
+            # for local time, we use timezone.localtime()
+            time_str = '%s:%s' % (timezone.localtime(obj.end_datetime).hour, timezone.localtime(obj.end_datetime).minute)
             return time_str
         return ''
     

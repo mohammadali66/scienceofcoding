@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { AnalyticsService } from '../services/analytics.service';
 import { Page } from '../models/page.model';
 import { ClientUserOpenedPage } from '../models/clientUserOpenedPage.model';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-analytics',
@@ -16,17 +18,20 @@ export class AnalyticsComponent implements OnInit {
   dayName;
   monthName;
   yearName;
-  dayNg = "26";
-  monthNg = "12";
-  yearNg = "2017";
-  fromdayNg = "26";
-  frommonthNg = "12";
-  fromyearNg = "2017";
-  todayNg = "26";
-  tomonthNg = "12";
-  toyearNg = "2017";
+  dayNg = "06";
+  monthNg = "03";
+  yearNg = "2018";
+  fromdayNg = "06";
+  frommonthNg = "03";
+  fromyearNg = "2018";
+  todayNg = "07";
+  tomonthNg = "03";
+  toyearNg = "2018";
   pageList: Array<Page>;
-  constructor(private analyticsService: AnalyticsService) {
+
+  constructor(private analyticsService: AnalyticsService,
+              private authService: AuthService,
+              private router: Router) {
     // day :
     this.dayName = [
       {name: '1', value:'01'},
@@ -88,7 +93,11 @@ export class AnalyticsComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    //if user is not superuser redirect to error404 page
+    if(this.authService.loggedUser == null || !this.authService.loggedUser.is_superuser){
+      this.router.navigate(['/error404']);
+    }
+    window.scrollTo(0, 0);    //scroll to top page
   }
 
   //============================================================================
@@ -107,6 +116,8 @@ export class AnalyticsComponent implements OnInit {
           for(let cp of p.clientUserOpenedPage_list){
             let clientUserOpenedPage: ClientUserOpenedPage = new ClientUserOpenedPage();
             clientUserOpenedPage.ip = cp.clientUser;
+            clientUserOpenedPage.country = cp.country;
+            clientUserOpenedPage.city = cp.city;
             clientUserOpenedPage.open_date = cp.open_date;
             clientUserOpenedPage.open_time = cp.open_time;
             clientUserOpenedPage.end_date = cp.end_date;
@@ -141,6 +152,8 @@ export class AnalyticsComponent implements OnInit {
           for(let cp of p.clientUserOpenedPage_list){
             let clientUserOpenedPage: ClientUserOpenedPage = new ClientUserOpenedPage();
             clientUserOpenedPage.ip = cp.clientUser;
+            clientUserOpenedPage.country = cp.country;
+            clientUserOpenedPage.city = cp.city;
             clientUserOpenedPage.open_date = cp.open_date;
             clientUserOpenedPage.open_time = cp.open_time;
             clientUserOpenedPage.end_date = cp.end_date;

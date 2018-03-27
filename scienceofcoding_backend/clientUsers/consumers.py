@@ -11,6 +11,7 @@ from django.dispatch import receiver
 from django.utils import timezone
 
 from clientUsers.models import ClientUser, Page, ClientUserOpenedPage
+from django.contrib.auth.models import User
 
 # ...............................................................................................................
 @channel_session_user_from_http
@@ -22,11 +23,34 @@ def clientUser_connect(message):
 @touch_presence
 @channel_session_user
 def clientUser_receive(message):
-    data = json.loads(message['text'])    
-    
+
+    data = json.loads(message['text'])
+
+    #this request is from week chart analytics component in angular : . . . . . . . . . . . . . .
+    if data['repeattext'] == 'heartbeat':
+        #send today statistic to frontend
+        today_view_count = ClientUserOpenedPage.objects.filter(open_datetime__date=timezone.now().date()).count()
+        room_name = 'analytics'
+        Group(room_name).add(message.reply_channel)
+        my_dict = {
+            'todaycount': today_view_count,
+        }
+        Group(room_name).send({'text': json.dumps(my_dict)})
+        return
+    #. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+
     # Get or create clientUser obj
     clientUser = None
     ip_address = data['ip_address']
+    print('ip: ' + ip_address)
+
+    if not message.user.is_authenticated:
+        print('not authenticated')
+
+    else:
+        print('authenticated')
+        
     
     try:
         clientUser = ClientUser.objects.get(ip_address=ip_address)
@@ -72,7 +96,12 @@ def clientUser_receive(message):
     token = data['token']
     
     Group(room_name).add(message.reply_channel)
-    Room_channels_presence.objects.add(room_name, message.reply_channel.name, message.user)
+    
+    #message.user = User.objects.get(username='ali')
+    #print('username: %s' % (message.user.username))
+    #message.user = None
+    #Room_channels_presence.objects.add(room_name, message.reply_channel.name, message.user)
+    Room_channels_presence.objects.add(room_name, message.reply_channel.name)
     message.channel_session['room'] = room_name
     
     print(room_name)    
@@ -95,7 +124,7 @@ def clientUser_disconnect(message):
     clientUserOpenedPageId = message.channel_session['clientUserOpenedPageId']
     clientUserOpenedPage = ClientUserOpenedPage.objects.get(id=clientUserOpenedPageId)
     clientUserOpenedPage.end_datetime = timezone.now()
-    clientUserOpenedPage.save()        
+    clientUserOpenedPage.save()
     
     # close from room
     room_name = message.channel_session['room']

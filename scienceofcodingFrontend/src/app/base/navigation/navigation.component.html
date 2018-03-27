@@ -1,33 +1,57 @@
-<nav class="navbar navbar-custom navbar-fixed-top" role="navigation"> <!--  navbar-transparent -->
-  <div class="container">
-    <div class="navbar-header">
-      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="index.html">Titan</a>
+<header class="header">
+  <!-- Main Navbar-->
+  <nav class="navbar navbar-expand-lg">
+    <div class="search-area">
+      <div class="search-area-inner d-flex align-items-center justify-content-center">
+        <div class="close-btn"><i class="icon-close"></i></div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-8">
+            <form action="#">
+              <div class="form-group">
+                <input type="search" name="search" id="search" placeholder="What are you looking for?">
+                <button type="submit" class="submit"><i class="icon-search-1"></i></button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
+    <div class="container">
+      <!-- Navbar Brand -->
+      <div class="navbar-header d-flex align-items-center justify-content-between">
+        <!-- Navbar Brand -->
+        <a [routerLink]= "['/']" class="navbar-brand">
+          <img src="assets/blogbootstrap/img/Logo_ABD3.png" width="230" height="50" class="d-inline-block align-top">
+        </a>
+        <!-- Toggle Button-->
+        <button type="button" data-toggle="collapse" data-target="#navbarcollapse" aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span></span><span></span><span></span></button>
+      </div>
+      <!-- Navbar Menu -->
+      <div id="navbarcollapse" class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a [routerLink]= "['/']" class="nav-link ">Home</a></li>
+          <li class="nav-item dropdown"><a [routerLink]="" class="nav-link dropdown-toggle" data-toggle="dropdown">Categories</a>
+            <div class="dropdown-menu">
 
-    <div class="collapse navbar-collapse" id="custom-collapse">
+                <a *ngFor="let category of categoryList" class="dropdown-item" [routerLink]="['/category', category.slug]">{{ category.name }}</a>
 
-      <ul class="nav navbar-nav navbar-right">
-        <li><a [routerLink]= "['/']">Home</a></li>
+            </div>
+          </li>
 
-        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">Categories</a>
-          <ul class="dropdown-menu">
-            <li *ngFor="let category of categoryList">
-              <a [routerLink]="['/category', category.slug]">{{ category.name }}</a>
-            </li>
-          </ul>
-        </li>
+          <div *ngIf="authService.loggedUser; then log else not_log"></div>
+          <!-- --------- logged in ---------------------------------------- -->
+          <ng-template #log>
+            <li class="nav-item"><a [routerLink]="" class="nav-link ">{{ authService.loggedUser.username }}</a></li>
+            <li class="nav-item"><a [routerLink]="" class="nav-link " (click)="logoutUser()">Logout</a></li>
+          </ng-template>
 
-        <div *ngIf="loggedUsername; then log else not_log"></div>
-        <ng-template #log>
-          <li><a>{{ loggedUsername }} <a (click)="logoutUser()"><i class="fa fa-chain-broken"></i></a></a></li>
-        </ng-template>
-
-        <ng-template #not_log>
-          <li><a [routerLink]= "['/login']">Login</a></li>
-          <li><a [routerLink]= "['/register']">Register</a></li>
-        </ng-template>
-      </ul>
-
-    </div><!-- collapse navbar-collapse -->
-  </div><!-- container -->
-</nav>
+          <!-- --------- not logged --------------------------------------- -->
+          <ng-template #not_log>
+            <li class="nav-item"><a class="nav-link " [routerLink]= "['/login']">Login</a></li>
+            <li class="nav-item"><a class="nav-link " [routerLink]= "['/register']">Register</a></li>
+          </ng-template>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

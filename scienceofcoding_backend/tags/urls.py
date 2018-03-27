@@ -7,4 +7,5 @@ app_name = 'tag-api'
 
 urlpatterns = [        
     url(r'^detail/(?P<slug>[\w-]+)/$', views.TagAPIView.as_view(), name='detail'),
+    url(r'^all/$', views.AllTagAPIView.as_view(), name='all'),
 ]

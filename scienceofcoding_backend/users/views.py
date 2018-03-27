@@ -125,7 +125,7 @@ class UserRegisterAPIView(APIView):
                             )
             user_obj.set_password(password)
             user_obj.last_login = timezone.now()
-            #user_obj.is_active = False
+            user_obj.is_active = False
             
             user_obj.save()
             

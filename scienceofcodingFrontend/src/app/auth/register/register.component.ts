@@ -1,25 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { User } from '../../models/user.model';
 import { AuthService } from '../../services/auth.service';
+import { WebsocketService } from '../../services/websocket.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
 
   errorMessage: string;
+  successMessage = false;
 
   constructor(private authService: AuthService,
+              private websocketService: WebsocketService,
               private router: Router) { }
 
   ngOnInit() {
     if(localStorage.getItem('username')){
       this.router.navigate(['/']);
     }
+    //websocket  .............................................
+    let page_name = 'register';
+    this.websocketService.clientUserSocket(page_name);
+
+    window.scrollTo(0, 0);    //scroll to top page
   }
   //............................................................................
   registerUserForm(form: NgForm){
@@ -32,17 +41,22 @@ export class RegisterComponent implements OnInit {
     this.authService.registerUser(aUser)
       .subscribe(
         (data: any) => {
-          localStorage.setItem('username', data.username);
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('avatar', data.avatar);
-          this.authService.isLogged = true;
           this.errorMessage = '';
+          let user: User = new User();
+          user.username = data.username;
+          user.token = data.token;
+          user.avatar = data.avatar;
+          
+          this.successMessage = true;
 
-          window.location.reload();
         },
         (error) => {
           this.errorMessage = error;
         }
       );
+  }
+  //............................................................................
+  ngOnDestroy(){
+    this.websocketService.closeWebsocket();
   }
 }

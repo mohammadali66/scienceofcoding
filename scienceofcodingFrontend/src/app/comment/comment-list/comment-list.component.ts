@@ -19,7 +19,7 @@ export class CommentListComponent implements OnInit {
 
     // for(let comment of this.comment_list){
     //   console.log(comment.user.username);
-    console.log('comment_list: ' + this.comment_list.title_english);
+
     // }
 
   }

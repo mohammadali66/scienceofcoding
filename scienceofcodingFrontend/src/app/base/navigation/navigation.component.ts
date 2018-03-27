@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { CategoryService } from '../../services/category.service';
 import { AuthService } from '../../services/auth.service';
@@ -12,10 +13,10 @@ import { Category } from '../../models/category.model';
 export class NavigationComponent implements OnInit {
 
   categoryList: Array<Category> = new Array<Category>();
-  loggedUsername: string;
 
   constructor(private categoryService: CategoryService,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit() {
     this.categoryService.getCategoryListMenu().subscribe(
@@ -28,22 +29,14 @@ export class NavigationComponent implements OnInit {
         }
       }
     );
-
-    //. . . . . . . . . . . . . . .
-
-    if(localStorage.getItem('username') !== ''){
-      this.loggedUsername = localStorage.getItem('username');
-    }else{
-      this.loggedUsername = '';
-    }
   }
 
   //----------------------------------------------------------------------------
   logoutUser(){
-    this.loggedUsername = null;
+    this.authService.loggedUser = null;
     localStorage.setItem('username', '');
     localStorage.setItem('token', '');
-    this.authService.isLogged = false;  //not used
-    //window.location.reload();
+    localStorage.setItem('avatar', '');
+    this.router.navigate(['/']);
   }
 }

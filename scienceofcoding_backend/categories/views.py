@@ -22,4 +22,10 @@ class CategoryDetailAPIView(RetrieveAPIView):
     queryset = Category.objects.all()
     lookup_field = 'slug'
     
+# ...............................................................................................................
+class CategoryLastArticleAPIView(ListAPIView):
+
+    serializer_class = serializers.CategoryLastArticleSerializer
+    permission_classes = (permissions.AllowAny,)
+    queryset = Category.objects.all()
 

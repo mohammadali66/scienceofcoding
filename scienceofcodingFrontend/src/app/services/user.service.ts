@@ -23,7 +23,6 @@ export class UserService{
       .map(
         (response: Response) => {
           const data = response.json();
-          // console.log(data);
           return data;
         }
       );
@@ -40,16 +39,14 @@ export class UserService{
         (response:Response) => {
           const data = response.json();
           return data;
-          //console.log(data);
         }
       )
       .catch(
-        (error: Response) => {
-          //console.log(error);
+        (error: Response) => {          
           return Observable.throw(error);
         }
       );
   }
   //............................................................................
-  
+
 }

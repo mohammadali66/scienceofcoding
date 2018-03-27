@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../../Ali_Blog_Django_1_BookShop/.idea/Ali_Blog_Django_1_BookShop.iml" filepath="$PROJECT_DIR$/../../Ali_Blog_Django_1_BookShop/.idea/Ali_Blog_Django_1_BookShop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../Channels/Chatroom_Ali/.idea/Chatroom_Ali.iml" filepath="$PROJECT_DIR$/../../Channels/Chatroom_Ali/.idea/Chatroom_Ali.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/scienceofcoding_backend.iml" filepath="$PROJECT_DIR$/.idea/scienceofcoding_backend.iml" />
+    </modules>
+  </component>
+</project>

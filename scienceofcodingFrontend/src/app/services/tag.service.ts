@@ -13,16 +13,30 @@ export class TagService{
   //............................................................................
   getTag(tagSlug: string){
     let url = this.mainUrl + '/api/tag/detail/' + tagSlug +'/?format=json';
-    // let headers = new Headers();
-    // headers.append('Content-Type', 'application/json');
-    // headers.append('Access-Control-Allow-Origin', '*');
 
-    // return this.http.get(url, headers)
     return this.http.get(url)
       .map(
         (response: Response) => {
           const data = response.json();
-          console.log(data);
+          return data;
+        }
+      )
+      .catch(
+        (error: Response) => {
+          const data = error.json();
+          return data;
+        }
+      );
+  }
+
+  //............................................................................
+  getAllTag(){
+    let url = this.mainUrl + '/api/tag/all/?format=json';
+
+    return this.http.get(url)
+      .map(
+        (response: Response) => {
+          const data = response.json();
           return data;
         }
       );

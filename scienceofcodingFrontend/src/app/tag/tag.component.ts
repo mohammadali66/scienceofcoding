@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { Tag } from '../models/tag.model';
 import { Article } from '../models/article.model';
 import { User } from '../models/user.model';
+import { Category } from '../models/category.model';
+
 import { TagService } from '../services/tag.service';
 import { ArticleService } from '../services/article.service';
 import { WebsocketService } from '../services/websocket.service';
@@ -22,7 +24,8 @@ export class TagComponent implements OnInit, OnDestroy {
   constructor(private tagService: TagService,
               private articleService: ArticleService,
               private route: ActivatedRoute,
-              private websocketService: WebsocketService
+              private websocketService: WebsocketService,
+              private router: Router
               ) { }
 
   ngOnInit() {
@@ -46,6 +49,10 @@ export class TagComponent implements OnInit, OnDestroy {
               this.websocketService.clientUserSocket(page_name);
               //......................................................
 
+            },
+            (error) => {
+              //redirect to error 404 page
+              this.router.navigate(['/error404']);
             }
           );
 
@@ -65,6 +72,12 @@ export class TagComponent implements OnInit, OnDestroy {
                   article.author = new User();
                   article.author.username = art.author.username;
                   article.author.slug = art.author.slug;
+                  article.author.avatar = art.author.avatar;
+
+                  let category: Category = new Category();
+                  category.name = art.category.name;
+                  category.slug = art.category.slug;
+                  article.category = category;
 
                   article.updated_date = art.updated_datetime;
                   article.url = art.get_api_url;
@@ -75,8 +88,10 @@ export class TagComponent implements OnInit, OnDestroy {
                 this.next = data.next;
               }
             );
+          window.scrollTo(0, 0);    //scroll to top page
       }
     );
+
   }
 
   //............................................................................
@@ -102,6 +117,12 @@ export class TagComponent implements OnInit, OnDestroy {
             article.author = new User();
             article.author.username = art.author.username;
             article.author.slug = art.author.slug;
+            article.author.avatar = art.author.avatar;
+
+            let category: Category = new Category();
+            category.name = art.category.name;
+            category.slug = art.category.slug;
+            article.category = category;
 
             article.updated_date = art.updated_datetime;
             article.url = art.get_api_url;
@@ -111,11 +132,13 @@ export class TagComponent implements OnInit, OnDestroy {
           this.previous = data.previous;
           this.next = data.next;
         },
-        (error) => console.log(error)
+        (error) => {}
       );
   }
   //............................................................................
   ngOnDestroy(){
-    this.websocketService.closeWebsocket();
+    if(this.websocketService.isCalled){
+      this.websocketService.closeWebsocket();
+    }
   }
 }

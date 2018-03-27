@@ -94,6 +94,7 @@ class UserLoginSerializer(ModelSerializer):
                     'password',                    
                     'token',
                     'avatar',
+                    'is_superuser',
                 )
         extra_kwargs = {
                             'username': {'read_only': True, },
@@ -101,6 +102,7 @@ class UserLoginSerializer(ModelSerializer):
                             'password': {'write_only': True, },                            
                             'token': { 'read_only': True, },
                             'avatar': { 'read_only': True, },
+                            'is_superuser': {'read_only': True, },
                         }
 
 

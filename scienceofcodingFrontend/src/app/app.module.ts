@@ -2,11 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+import { ChartsModule } from 'ng2-charts';
 
-//import {DpDatePickerModule} from 'ng2-date-picker';
-//import {DatePickerModule} from 'ng2-datepicker-bootstrap';
-//import { MyDatePickerModule } from 'mydatepicker';
-// import { NgDatepickerModule } from 'ng2-datepicker';
+//import { BotDetectCaptchaModule } from 'angular-captcha';
+// import { RecaptchaModule } from 'ng-recaptcha';
+// import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 
 import { WebsocketService } from './services/websocket.service';
 import { CategoryService } from './services/category.service';
@@ -38,6 +38,12 @@ import { RegisterComponent } from './auth/register/register.component';
 import { CommentCreateComponent } from './comment/comment-create/comment-create.component';
 import { NewDirectiveDirective } from './directives/new-directive.directive';
 import { CommentReplyComponent } from './comment/comment-reply/comment-reply.component';
+import { WeekchartAnalyticsComponent } from './analytics/weekchart-analytics/weekchart-analytics.component';
+import { TodayAnalyticsComponent } from './analytics/today-analytics/today-analytics.component';
+import { CategoryLastArticleComponent } from './home/category-last-article/category-last-article.component';
+import { MostViewArticleComponent } from './home/most-view-article/most-view-article.component';
+import { SearchArticleComponent } from './search-article/search-article.component';
+import { Error404Component } from './error404/error404.component';
 
 @NgModule({
   declarations: [
@@ -60,13 +66,22 @@ import { CommentReplyComponent } from './comment/comment-reply/comment-reply.com
     RegisterComponent,
     CommentCreateComponent,
     NewDirectiveDirective,
-    CommentReplyComponent
+    CommentReplyComponent,
+    WeekchartAnalyticsComponent,
+    TodayAnalyticsComponent,
+    CategoryLastArticleComponent,
+    MostViewArticleComponent,
+    SearchArticleComponent,
+    Error404Component
   ],
   imports: [
     BrowserModule,
     HttpModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ChartsModule
+    //RecaptchaModule.forRoot(),
+    //RecaptchaFormsModule
   ],
   providers: [
     UserService,

@@ -1,13 +1,15 @@
 
 <p>{{ message }}</p>
 
-<form (ngSubmit)="createCommentForm(f)" #f="ngForm">
-
-  <div class="form-group">
-    <textarea class="form-control" id="content" name="content"
-      rows="7" placeholder="Reply to Comment" dir="auto"
-      ngModel required content #content="ngModel"></textarea>
+<form (ngSubmit)="createCommentForm(f)" #f="ngForm" class="commenting-form">
+  <div class="row">
+    <div class="form-group col-md-12">
+      <textarea class="form-control" id="content" name="content"
+        rows="7" placeholder="Reply to Comment" dir="auto"
+        ngModel required content #content="ngModel"></textarea>
+    </div>
+    <div class="form-group col-md-12">
+      <button class="btn btn-secondary btn-sm btn-block" [disabled]="!f.valid" type="submit">reply</button>
+    </div>
   </div>
-  <button class="btn btn-round btn-sm" [disabled]="!f.valid" type="submit">reply</button>
-
 </form>
