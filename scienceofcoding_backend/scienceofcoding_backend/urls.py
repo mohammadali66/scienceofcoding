@@ -17,9 +17,17 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.sitemaps.views import sitemap
 # from django.urls import path, include
 
 from home.views import IndexView
+from articles.views import ArticleSitemap
+
+# Dictionary containing your sitemap classes
+sitemaps = {
+   'articles': ArticleSitemap,
+}
+
 
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index'),
@@ -30,6 +38,8 @@ urlpatterns = [
     url(r'^api/tag/', include('tags.urls', namespace='tag-api')),
     url(r'^api/analytics/', include('clientUsers.urls', namespace='clientUsers-api')),
     url(r'^api/comment/', include('comments.urls', namespace='comment-api')),
+
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

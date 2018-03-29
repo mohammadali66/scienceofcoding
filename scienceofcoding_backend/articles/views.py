@@ -6,11 +6,12 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from django.db.models import Q
-import operator
+from django.contrib.sitemaps import Sitemap
 
 from . import serializers
 from .models import Article
 from .paginations import StandardResultsSetPagination
+
 
 class ArticleListOfOneCategoryAPIView(ListAPIView):
     serializer_class = serializers.ArticleBriefSerializer
@@ -108,6 +109,23 @@ class SearchArticleAPIView(APIView):
             return Response({'message': 'not found'}, status=status.HTTP_400_BAD_REQUEST)
 
     
+# ...............................................................................................................
+# ...............................................................................................................
+# ...............................................................................................................
+#sitemap for article model ......................................................................................
+class ArticleSitemap(Sitemap):
+    changefreq = "daily"
+    priority = 0.5
+
+    def items(self):
+        return Article.objects.filter(is_active=True)
+
+    def lastmod(self, obj):
+        return obj.updated_datetime
+
+    def location(self, obj):
+        return obj.get_frontend_url()
+
 
 
 
