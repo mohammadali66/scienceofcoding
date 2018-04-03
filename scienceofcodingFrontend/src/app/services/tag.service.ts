@@ -4,12 +4,15 @@ import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 import 'rxjs/add/operator/toPromise';
 
+import { MainService } from './main.service';
+
 @Injectable()
 export class TagService{
-  private mainUrl = 'http://127.0.0.1:8000';
 
-  constructor(private http: Http){}
+  constructor(private http: Http,
+              private mainService: MainService){}
 
+  private mainUrl = this.mainService.mainUrl;
   //............................................................................
   getTag(tagSlug: string){
     let url = this.mainUrl + '/api/tag/detail/' + tagSlug +'/?format=json';

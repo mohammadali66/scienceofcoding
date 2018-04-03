@@ -37,6 +37,7 @@ export class NavigationComponent implements OnInit {
     localStorage.setItem('username', '');
     localStorage.setItem('token', '');
     localStorage.setItem('avatar', '');
+    localStorage.setItem('is_superuser', '');
     this.router.navigate(['/']);
   }
 }

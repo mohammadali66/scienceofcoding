@@ -12,6 +12,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { SearchArticleComponent } from './search-article/search-article.component';
 import { Error404Component } from './error404/error404.component';
+import { AboutusComponent } from './aboutus/aboutus.component';
+
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -26,6 +28,7 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'search', component: SearchArticleComponent },
+  { path: 'aboutus', component: AboutusComponent },
   //error 404
   { path: 'error404', component: Error404Component },
   { path: '**', redirectTo: '/error404' }

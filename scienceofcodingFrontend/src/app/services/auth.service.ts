@@ -5,25 +5,28 @@ import 'rxjs/Rx';
 import 'rxjs/add/operator/toPromise';
 
 import { User } from '../models/user.model';
+import { MainService } from './main.service';
 
 @Injectable()
 export class AuthService{
-
-  private mainUrl = 'http://127.0.0.1:8000';
+  
   loggedUser: User;
 
-  constructor(private http: Http){
+  constructor(private http: Http,
+              private mainService: MainService){
     //if user logged in set loggedUser property
     if(localStorage.getItem('username')){
       this.loggedUser = new User();
       this.loggedUser.username = localStorage.getItem('username');
       this.loggedUser.token = localStorage.getItem('token');
       this.loggedUser.avatar = localStorage.getItem('avatar');
+      this.loggedUser.is_superuser = Boolean(localStorage.getItem('is_superuser'));
     }else{
       this.loggedUser = null;
     }
   }
 
+  private mainUrl = this.mainService.mainUrl;
   //............................................................................
   loginUser(aUser: any){
   let url = this.mainUrl + '/api/user/login/?format=json';

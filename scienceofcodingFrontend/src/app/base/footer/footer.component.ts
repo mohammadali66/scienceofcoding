@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { CategoryService } from '../../services/category.service';
+import { AuthService } from '../../services/auth.service';
 import { Category } from '../../models/category.model';
 
 @Component({
@@ -12,7 +13,8 @@ export class FooterComponent implements OnInit {
 
   categoryList: Array<Category> = new Array<Category>();
 
-  constructor(private categoryService: CategoryService) { }
+  constructor(private categoryService: CategoryService,
+              private authService: AuthService) { }
 
   ngOnInit() {
     this.categoryService.getCategoryListMenu().subscribe(
@@ -24,7 +26,7 @@ export class FooterComponent implements OnInit {
           this.categoryList.push(category);
         }
       }
-    );    
+    );
   }
 
 }

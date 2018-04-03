@@ -1,25 +1,28 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 import 'rxjs/add/operator/toPromise';
 
+import { AuthService } from './auth.service';
+import { MainService } from './main.service';
+
 @Injectable()
 export class AnalyticsService{
 
-  private mainUrl = 'http://127.0.0.1:8000';
+  constructor(private http: Http,
+              private authService: AuthService,
+              private mainService: MainService){}
 
-  constructor(private http: Http){}
-
+  private mainUrl = this.mainService.mainUrl;
   //............................................................................
   getOpenedPageOfOneDate(date: string){
     let url = this.mainUrl + '/api/analytics/pagelist/' + date +'/?format=json';
-    //let headers = new Headers();
-    //headers.append('Content-Type', 'application/json');
-    //headers.append('Access-Control-Allow-Origin', '*');
+    let headers = new Headers();
+    headers = new Headers({ 'Authorization': 'Token ' + this.authService.loggedUser.token });
+    let options = new RequestOptions({ headers: headers });
 
-    //return this.http.get(url, headers)
-    return this.http.get(url)
+    return this.http.get(url, options)
       .map(
         (response: Response) => {
           const data = response.json();
@@ -37,12 +40,11 @@ export class AnalyticsService{
   //............................................................................
   getOpenedPageOfTwoDate(fromdate: string, todate: string){
     let url = this.mainUrl + '/api/analytics/pagelist2/' + fromdate + '/' + todate +'/?format=json';
-    // let headers = new Headers();
-    // headers.append('Content-Type', 'application/json');
-    // headers.append('Access-Control-Allow-Origin', '*');
+    let headers = new Headers();
+    headers = new Headers({ 'Authorization': 'Token ' + this.authService.loggedUser.token });
+    let options = new RequestOptions({ headers: headers });
 
-    // return this.http.get(url, headers)
-    return this.http.get(url)
+    return this.http.get(url, options)
       .map(
         (response: Response) => {
           const data = response.json();
@@ -59,15 +61,14 @@ export class AnalyticsService{
   //............................................................................
   getCountViewFromDayUntilNow(day:number){
     let url = this.mainUrl + '/api/analytics/viewcount/' + day + '/?format=json';
-    // let headers = new Headers();
-    // headers.append('Content-Type', 'application/json');
-    // headers.append('Access-Control-Allow-Origin', '*');
+    let headers = new Headers();
+    headers = new Headers({ 'Authorization': 'Token ' + this.authService.loggedUser.token });
+    let options = new RequestOptions({ headers: headers });
 
-    // return this.http.get(url, headers)
-    return this.http.get(url)
+    return this.http.get(url, options)
       .map(
         (response: Response) => {
-          const data = response.json();          
+          const data = response.json();
           return data;
         }
       )
