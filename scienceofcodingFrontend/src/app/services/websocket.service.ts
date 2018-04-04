@@ -42,7 +42,8 @@ export class WebsocketService{
   //function clientUserSocket
   clientUserSocket(room_name: string){
     this.isCalled = true;
-    this.socket = new WebSocket(this.mainService.wsUrl + "/clientuser/");
+    //this.socket = new WebSocket(this.mainService.wsUrl + "/clientuser/");
+    this.socket = new WebSocket("ws://localhost:8000/clientuser/");
     var _self = this;
 
     this.getIPInfo().subscribe(

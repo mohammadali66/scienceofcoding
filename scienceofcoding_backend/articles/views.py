@@ -69,13 +69,14 @@ class LastArticleAPIView(APIView):
 
 # ...............................................................................................................
 #most view article
+#15th farvardin 97: this view changed to articles that featured == True
 class MostViewArticleAPIView(APIView):
     serializer_class = serializers.ArticleBriefSerializer
     permission_classes = (permissions.AllowAny,)
 
     def get(self, request, count, *args, **kwargs):
         try:
-            articleList = Article.objects.filter(is_active=True).order_by('-view_count')[:int(count)]
+            articleList = Article.objects.filter(is_active=True, featured=True)[:int(count)]
             return Response(self.serializer_class(articleList, many=True).data, status=status.HTTP_200_OK)
 
         except:
