@@ -9,11 +9,11 @@ from django.utils import timezone
 
 class ClientUser(models.Model):
     
-    ip_address = models.CharField(max_length=20, blank=True, null=True)
-    isp = models.CharField(max_length=30, blank=True, null=True)
+    ip_address = models.CharField(max_length=50, blank=True, null=True)
+    isp = models.CharField(max_length=50, blank=True, null=True)
     
-    country = models.CharField(max_length=20, blank=True, null=True)
-    city = models.CharField(max_length=20, blank=True, null=True)
+    country = models.CharField(max_length=50, blank=True, null=True)
+    city = models.CharField(max_length=50, blank=True, null=True)
     
     altitude = models.CharField(max_length=20, blank=True, null=True)
     longitude = models.CharField(max_length=20, blank=True, null=True)

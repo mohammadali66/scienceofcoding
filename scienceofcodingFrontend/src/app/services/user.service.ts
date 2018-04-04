@@ -4,13 +4,15 @@ import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 import 'rxjs/add/operator/toPromise';
 
+import { MainService } from './main.service';
 
 @Injectable()
-export class UserService{
-  private mainUrl = 'http://127.0.0.1:8000';
+export class UserService{  
 
-  constructor(private http: Http){}
+  constructor(private http: Http,
+              private mainService: MainService){}
 
+  private mainUrl = this.mainService.mainUrl;
   //............................................................................
   getUserProfile(userSlug: string){
     let url = this.mainUrl + '/api/user/detail/' + userSlug +'/?format=json';
@@ -42,7 +44,7 @@ export class UserService{
         }
       )
       .catch(
-        (error: Response) => {          
+        (error: Response) => {
           return Observable.throw(error);
         }
       );

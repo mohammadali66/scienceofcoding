@@ -37,12 +37,14 @@
 
             </div>
           </li>
+          <li class="nav-item"><a [routerLink]= "['/aboutus']" class="nav-link ">About Us</a></li>
 
           <div *ngIf="authService.loggedUser; then log else not_log"></div>
           <!-- --------- logged in ---------------------------------------- -->
           <ng-template #log>
             <li class="nav-item"><a [routerLink]="" class="nav-link ">{{ authService.loggedUser.username }}</a></li>
             <li class="nav-item"><a [routerLink]="" class="nav-link " (click)="logoutUser()">Logout</a></li>
+            <li class="nav-item" *ngIf="authService.loggedUser.is_superuser"><a class="nav-link " [routerLink]= "['/analytics']">Analytics</a></li>
           </ng-template>
 
           <!-- --------- not logged --------------------------------------- -->

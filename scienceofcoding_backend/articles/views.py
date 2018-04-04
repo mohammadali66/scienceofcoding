@@ -6,11 +6,12 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from django.db.models import Q
-import operator
+from django.contrib.sitemaps import Sitemap
 
 from . import serializers
 from .models import Article
 from .paginations import StandardResultsSetPagination
+
 
 class ArticleListOfOneCategoryAPIView(ListAPIView):
     serializer_class = serializers.ArticleBriefSerializer
@@ -68,13 +69,14 @@ class LastArticleAPIView(APIView):
 
 # ...............................................................................................................
 #most view article
+#15th farvardin 97: this view changed to articles that featured == True
 class MostViewArticleAPIView(APIView):
     serializer_class = serializers.ArticleBriefSerializer
     permission_classes = (permissions.AllowAny,)
 
     def get(self, request, count, *args, **kwargs):
         try:
-            articleList = Article.objects.filter(is_active=True).order_by('-view_count')[:int(count)]
+            articleList = Article.objects.filter(is_active=True, featured=True)[:int(count)]
             return Response(self.serializer_class(articleList, many=True).data, status=status.HTTP_200_OK)
 
         except:
@@ -108,6 +110,23 @@ class SearchArticleAPIView(APIView):
             return Response({'message': 'not found'}, status=status.HTTP_400_BAD_REQUEST)
 
     
+# ...............................................................................................................
+# ...............................................................................................................
+# ...............................................................................................................
+#sitemap for article model ......................................................................................
+class ArticleSitemap(Sitemap):
+    changefreq = "daily"
+    priority = 0.5
+
+    def items(self):
+        return Article.objects.filter(is_active=True)
+
+    def lastmod(self, obj):
+        return obj.updated_datetime
+
+    def location(self, obj):
+        return obj.get_frontend_url()
+
 
 
 

@@ -53,8 +53,7 @@ export class TodayAnalyticsComponent implements OnInit {
           }
           page.clientUserOpenedPage_list = clientUserOpenedPageList;
           this.pageList.push(page);
-        }
-        console.log(this.pageList);
+        }        
       }
 
     );

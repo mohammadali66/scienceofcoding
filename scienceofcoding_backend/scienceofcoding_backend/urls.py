@@ -17,12 +17,24 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.sitemaps.views import sitemap
 # from django.urls import path, include
 
+from django.contrib.staticfiles.views import serve
+from django.views.generic import RedirectView
+
 from home.views import IndexView
+from articles.views import ArticleSitemap
+
+# Dictionary containing your sitemap classes
+sitemaps = {
+   'articles': ArticleSitemap,
+}
+
 
 urlpatterns = [
-    url(r'^$', IndexView.as_view(), name='index'),
+    #url(r'^$', serve, kwargs={'path': 'index.html'}),
+
     url(r'^admin/', admin.site.urls),    
     url(r'^api/user/', include('users.urls', namespace='users')),
     url(r'^api/category/', include('categories.urls', namespace='category-api')),
@@ -30,13 +42,19 @@ urlpatterns = [
     url(r'^api/tag/', include('tags.urls', namespace='tag-api')),
     url(r'^api/analytics/', include('clientUsers.urls', namespace='clientUsers-api')),
     url(r'^api/comment/', include('comments.urls', namespace='comment-api')),
-    
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 
-# urlpatterns = [
-#     path('admin/', admin.site.urls),
-#     #path('users/', include('users.urls', namespace='publisher-polls')),
-#     path('users/', include('users.urls', namespace='users')),
-# ]
+    #angular route:
+    url(r'^$', IndexView.as_view()),    #home page
+    # catch-all pattern for compatibility with the Angular routes. This must be last in the list.
+    url(r'^(?P<path>.*)/$', IndexView.as_view()),
+    #set static and media for path from angular
+    url(r'^(?!/?static/)(?!/?media/)(?P<path>.*\..*)$',
+        RedirectView.as_view(url='/static/%(path)s', permanent=False)),
+]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
 

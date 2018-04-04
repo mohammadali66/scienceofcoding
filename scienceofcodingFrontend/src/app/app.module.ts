@@ -16,6 +16,7 @@ import { UserService } from './services/user.service';
 import { AnalyticsService } from './services/analytics.service';
 import { AuthService } from './services/auth.service';
 import { CommentService } from './services/comment.service';
+import { MainService } from './services/main.service';
 
 import { AppComponent } from './app.component';
 import { UserListComponent } from './user/user-list/user-list.component';
@@ -44,6 +45,7 @@ import { CategoryLastArticleComponent } from './home/category-last-article/categ
 import { MostViewArticleComponent } from './home/most-view-article/most-view-article.component';
 import { SearchArticleComponent } from './search-article/search-article.component';
 import { Error404Component } from './error404/error404.component';
+import { AboutusComponent } from './aboutus/aboutus.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +74,8 @@ import { Error404Component } from './error404/error404.component';
     CategoryLastArticleComponent,
     MostViewArticleComponent,
     SearchArticleComponent,
-    Error404Component
+    Error404Component,
+    AboutusComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +94,8 @@ import { Error404Component } from './error404/error404.component';
     TagService,
     AnalyticsService,
     AuthService,
-    CommentService
+    CommentService,
+    MainService
   ],
   bootstrap: [AppComponent]
 })

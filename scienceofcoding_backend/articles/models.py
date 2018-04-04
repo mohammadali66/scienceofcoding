@@ -62,6 +62,10 @@ class Article(models.Model):
     
     def get_api_url(self):
         return reverse('article-api:detail', kwargs={'slug': self.slug})
+
+    def get_frontend_url(self):
+        #get url of angular in frontend
+        return '/article/%s/' % self.slug
     
     
     class Meta:

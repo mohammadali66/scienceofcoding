@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           localStorage.setItem('username', user.username);
           localStorage.setItem('token', user.token);
           localStorage.setItem('avatar', user.avatar);
+          localStorage.setItem('is_superuser', '' + user.is_superuser);
 
           this.router.navigate(['/']);
         },

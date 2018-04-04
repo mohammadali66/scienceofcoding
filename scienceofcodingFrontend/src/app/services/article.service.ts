@@ -4,11 +4,15 @@ import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 import 'rxjs/add/operator/toPromise';
 
-@Injectable()
-export class ArticleService{
-  private mainUrl = 'http://127.0.0.1:8000';
+import { MainService } from './main.service';
 
-  constructor(private http: Http){}
+@Injectable()
+export class ArticleService{  
+
+  constructor(private http: Http,
+              private mainService: MainService){}
+
+  private mainUrl = this.mainService.mainUrl;
 
   //...........................................................................
   //get books list of a category
@@ -77,7 +81,7 @@ export class ArticleService{
       )
       .catch(
         (error: Response) => {
-          const data = error.json();          
+          const data = error.json();
           return data;
         }
       );

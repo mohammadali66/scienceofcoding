@@ -5,14 +5,15 @@ import 'rxjs/Rx';
 import 'rxjs/add/operator/toPromise';
 
 import { Category } from '../models/category.model';
+import { MainService } from './main.service';
 
 @Injectable()
-export class CategoryService{
+export class CategoryService{  
 
-  private mainUrl = 'http://127.0.0.1:8000';
+  constructor(private http: Http,
+              private mainService: MainService){}
 
-  constructor(private http: Http){}
-
+  private mainUrl = this.mainService.mainUrl;
   //............................................................................
   getCategoryListMenu(){
     let url = this.mainUrl + '/api/category/categorylist/?format=json';
@@ -56,7 +57,7 @@ export class CategoryService{
     return this.http.get(url)
       .map(
         (response: Response) => {
-          const data = response.json();          
+          const data = response.json();
           return data;
         }
       );

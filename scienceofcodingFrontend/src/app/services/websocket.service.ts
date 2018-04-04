@@ -3,6 +3,8 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 
+import { MainService } from './main.service';
+
 @Injectable()
 export class WebsocketService{
 
@@ -12,7 +14,8 @@ export class WebsocketService{
   private data:any;
   public isCalled: boolean;
 
-  constructor(private http: Http){
+  constructor(private http: Http,
+              private mainService: MainService){
     //this.socket = new WebSocket("ws://localhost:8000/clientuser/");
     this.ipInfo = "";
     this.isCalled = false;
@@ -39,6 +42,7 @@ export class WebsocketService{
   //function clientUserSocket
   clientUserSocket(room_name: string){
     this.isCalled = true;
+    //this.socket = new WebSocket(this.mainService.wsUrl + "/clientuser/");
     this.socket = new WebSocket("ws://localhost:8000/clientuser/");
     var _self = this;
 
@@ -67,7 +71,7 @@ export class WebsocketService{
       _self.socket.send(JSON.stringify(clientMessage));
     };
 
-    _self.socket.onmessage = (event) => {      
+    _self.socket.onmessage = (event) => {
       _self.data = JSON.parse(event.data);
     };
   }
