@@ -25,7 +25,7 @@ def clientUser_connect(message):
 def clientUser_receive(message):
 
     data = json.loads(message['text'])
-    
+
     #this request is from week chart analytics component in angular : . . . . . . . . . . . . . .
     if data['repeattext'] == 'heartbeat':
         #send today statistic to frontend

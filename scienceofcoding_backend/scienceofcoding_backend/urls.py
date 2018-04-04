@@ -34,8 +34,6 @@ sitemaps = {
 
 urlpatterns = [
     #url(r'^$', serve, kwargs={'path': 'index.html'}),
-    url(r'^(?!/?static/)(?!/?media/)(?P<path>.*\..*)$',
-        RedirectView.as_view(url='/static/%(path)s', permanent=False)),
 
     url(r'^admin/', admin.site.urls),    
     url(r'^api/user/', include('users.urls', namespace='users')),
@@ -47,8 +45,13 @@ urlpatterns = [
 
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 
+    #angular route:
+    url(r'^$', IndexView.as_view()),    #home page
     # catch-all pattern for compatibility with the Angular routes. This must be last in the list.
     url(r'^(?P<path>.*)/$', IndexView.as_view()),
+    #set static and media for path from angular
+    url(r'^(?!/?static/)(?!/?media/)(?P<path>.*\..*)$',
+        RedirectView.as_view(url='/static/%(path)s', permanent=False)),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
